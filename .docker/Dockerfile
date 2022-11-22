@@ -4,11 +4,12 @@ FROM debian:stable-slim
 # apt 설정
 ARG DEBIAN_FRONTEND=noninteractive
 
-# cron,  설치
+# cron, rclone 설치
 RUN apt-get update ; \
-    apt-get install -y -qq --no-install-recommends \ 
-    cron curl unzip ca-certificates ; \
-    curl https://rclone.org/install.sh | bash
+    apt-get install -y -qq --no-install-recommends \
+    cron curl unzip ca-certificates dos2unix ; \
+    curl https://rclone.org/install.sh | bash ; \
+    rm -rf /var/lib/apt/lists/*
 
 # 타임존 한국
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
@@ -17,14 +18,12 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 COPY crontab.sh /crontab.sh
 COPY cronjob.sh /cronjob.sh
 
-# rclone.conf 복사
-COPY rclone.conf /root/.config/rclone/rclone.conf
-RUN chmod 0644 /root/.config/rclone/rclone.conf
-
-# entrypoint 등록
+# add entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 0744 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-# cron 포그라운드 실행
+# https://manpages.ubuntu.com/manpages/trusty/man8/cron.8.html
+# -f | Stay in foreground mode, don't daemonize.
+# -L loglevel | Tell  cron  what to log about jobs (errors are logged regardless of this value) as the sum of the following values:
 CMD ["cron", "-f", "-L", "2"]

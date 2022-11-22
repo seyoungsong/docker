@@ -1,7 +1,9 @@
 #!/bin/sh
 # docker exec -it cron bash
 
-echo "날짜: $(date)"
+# 현재 시간 프린트
+echo "[cronjob] $(date)"
 
-echo "rclone --version"
+# rclone 테스트
+echo "[cronjob] rclone --version"
 rclone --version
