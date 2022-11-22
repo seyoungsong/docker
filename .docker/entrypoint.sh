@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# dos2unix
-cp /cron*.sh /app
+# copy new files to workdir
+cp /cron* /app
 dos2unix /app/*
 
 # crontab
@@ -12,8 +12,8 @@ crontab /app/crontab.sh
 env >>/etc/environment
 
 # print date
-echo "Entrypoint Date: $(date)"
+echo "[entrypoint] $(date)"
 
 # run cmd (cron)
-echo "$@"
+echo "[entrypoint] $@"
 exec "$@"
