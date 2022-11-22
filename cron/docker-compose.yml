@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  cron:
+    container_name: cron
+    build: .
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
+    init: true
+    volumes:
+      - ./cronjob.sh:/cronjob.sh
+      - ./crontab-hourly.sh:/crontab.sh
+
+# docker compose build --no-cache
+# docker compose up --build --remove-orphans --detach
+# docker exec -it cron bash
+# crontab -l
+# docker compose logs cron -f
