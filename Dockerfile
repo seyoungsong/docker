@@ -3,11 +3,11 @@ FROM debian:stable-slim
 
 # apt 설정
 ARG DEBIAN_FRONTEND=noninteractive
-RUN sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list
 
-# cron, rclone 설치
-RUN apt-get update && \
-    apt-get install -y -qq --no-install-recommends cron curl unzip ca-certificates && \
+# cron,  설치
+RUN apt-get update ; \
+    apt-get install -y -qq --no-install-recommends \ 
+    cron curl unzip ca-certificates ; \
     curl https://rclone.org/install.sh | bash
 
 # 타임존 한국
