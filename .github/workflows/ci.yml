@@ -9,7 +9,7 @@ on:
   # To manually trigger a workflow, use the workflow_dispatch event.
   workflow_dispatch:
   # on push
-  # push:
+  push:
   # “At 00:00 on Sunday.”
   schedule:
     - cron: "0 0 * * 0"
@@ -39,4 +39,4 @@ jobs:
           file: .docker/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{env.DOCKER_IMAGE}}:latest
+          tags: ${{ env.DOCKER_IMAGE }}:latest
