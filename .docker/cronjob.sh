@@ -1,9 +1,8 @@
 #!/bin/sh
-# docker exec -it cron bash
 
-# 현재 시간 프린트
+# print current date
 echo "[cronjob] $(date)"
 
-# rclone 테스트
+# test rclone
 echo "[cronjob] rclone --version"
 rclone --version

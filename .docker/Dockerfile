@@ -1,31 +1,29 @@
 # docker run -it --rm debian:stable-slim bash
 FROM debian:stable-slim
 
-# 타임존 한국
+# Korean timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
-# apt 설정
+# apt: install cron, rclone
 ARG DEBIAN_FRONTEND=noninteractive
-
-# cron, rclone 설치
 RUN apt-get update ; \
     apt-get install -y -qq --no-install-recommends \
     cron curl unzip ca-certificates dos2unix ; \
     curl https://rclone.org/install.sh | bash ; \
     rm -rf /var/lib/apt/lists/*
 
-# 샘플 crontab, cronjob 복사
+# copy sample files
 COPY crontab.sh /crontab.sh
 COPY cronjob.sh /cronjob.sh
 COPY entrypoint.sh /entrypoint.sh
 
-# workdir
-WORKDIR /app
-
-# entrypoint
+# set entrypoint
 RUN chmod 0744 /entrypoint.sh ; \
     dos2unix /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
+# workdir
+WORKDIR /app
 
 # https://manpages.ubuntu.com/manpages/trusty/man8/cron.8.html
 # -f | Stay in foreground mode, don't daemonize.
