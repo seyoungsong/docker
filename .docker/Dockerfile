@@ -1,6 +1,9 @@
 # docker run -it --rm debian:stable-slim bash
 FROM debian:stable-slim
 
+# 타임존 한국
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
 # apt 설정
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -11,16 +14,17 @@ RUN apt-get update ; \
     curl https://rclone.org/install.sh | bash ; \
     rm -rf /var/lib/apt/lists/*
 
-# 타임존 한국
-RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-
 # 샘플 crontab, cronjob 복사
 COPY crontab.sh /crontab.sh
 COPY cronjob.sh /cronjob.sh
-
-# add entrypoint
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 0744 /entrypoint.sh
+
+# workdir
+WORKDIR /app
+
+# entrypoint
+RUN chmod 0744 /entrypoint.sh ; \
+    dos2unix /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 # https://manpages.ubuntu.com/manpages/trusty/man8/cron.8.html

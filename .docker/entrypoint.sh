@@ -1,16 +1,19 @@
 #!/bin/sh
 
-# crontab 등록
-chmod 0644 /crontab.sh
-dos2unix /crontab.sh
-crontab /crontab.sh
+# dos2unix
+cp /cron*.sh /app
+dos2unix /app/*
 
-# env 등록
+# crontab
+chmod 0644 /app/crontab.sh
+crontab /app/crontab.sh
+
+# env
 env >>/etc/environment
 
-# 현재 시간 프린트
+# print date
 echo "Entrypoint Date: $(date)"
 
-# cron 실행
+# run cmd (cron)
 echo "$@"
 exec "$@"
