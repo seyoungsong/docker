@@ -20,6 +20,10 @@ env >>/etc/environment
 # print date
 echo "[entrypoint] $(date)"
 
+# print rclone version
+echo "[entrypoint] rclone version"
+rclone version
+
 # run cmd (cron)
 echo "[entrypoint] $@"
 exec "$@"
