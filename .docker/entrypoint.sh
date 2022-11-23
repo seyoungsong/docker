@@ -5,6 +5,7 @@ cp /cron* /app
 dos2unix /app/*
 
 # copy rclone config
+mkdir -p /root/.config/rclone
 cp /rclone.conf /root/.config/rclone/rclone.conf
 chmod 0644 /root/.config/rclone/rclone.conf
 dos2unix /root/.config/rclone/rclone.conf
