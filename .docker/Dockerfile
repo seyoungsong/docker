@@ -15,9 +15,9 @@ RUN apt-get update ; \
 # copy sample files
 COPY crontab.sh /crontab.sh
 COPY cronjob.sh /cronjob.sh
-COPY entrypoint.sh /entrypoint.sh
 
 # set entrypoint
+COPY entrypoint.sh /entrypoint.sh
 RUN chmod 0744 /entrypoint.sh ; \
     dos2unix /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
