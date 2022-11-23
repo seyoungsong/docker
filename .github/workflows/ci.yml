@@ -15,7 +15,7 @@ on:
     - cron: "0 0 * * 0"
 
 env:
-  IMAGE_NAME: cron-rclone
+  IMAGE_NAME: rclone-crontab
 
 jobs:
   build-image:

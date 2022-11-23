@@ -1,14 +1,14 @@
 # build
-docker build --tag seyoung20/cron-rclone --file .docker/Dockerfile .docker
+docker build --tag seyoungsong/rclone-crontab --file .docker/Dockerfile .docker
 
 # test bash
-docker run -it --rm seyoung20/cron-rclone /bin/bash
+docker run -it --rm seyoungsong/rclone-crontab /bin/bash
 
 # test cron
-docker run -it --rm seyoung20/cron-rclone
+docker run -it --rm seyoungsong/rclone-crontab
 
 # inspect
-docker inspect seyoung20/cron-rclone >temp.json
+docker inspect seyoungsong/rclone-crontab >temp.json
 
 # reset docker
 docker stop $(docker ps -aq)
