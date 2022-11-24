@@ -1,0 +1,36 @@
+// https://github.com/microsoft/vscode-remote-try-python/blob/main/.devcontainer/devcontainer.json
+// https://containers.dev/implementors/json_reference/
+// Dev Containers: Reopen in Container
+{
+  "name": "Python",
+  "image": "seyoungsong/selenium:dev",
+  "remoteEnv": {
+    // Windows 10: VcXsrv XLaunch
+    "DISPLAY": "host.docker.internal:0"
+  },
+  "features": {
+    // https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+    "ghcr.io/devcontainers/features/docker-in-docker:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black"
+      },
+      // code --list-extensions > temp.txt
+      "extensions": [
+        "bierner.markdown-preview-github-styles",
+        "codezombiech.gitignore",
+        "esbenp.prettier-vscode",
+        "foxundermoon.shell-format",
+        "ms-azuretools.vscode-docker",
+        "ms-ceintl.vscode-language-pack-ko",
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "yzhang.markdown-all-in-one"
+      ]
+    }
+  }
+}
