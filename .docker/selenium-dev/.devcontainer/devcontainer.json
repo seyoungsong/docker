@@ -3,11 +3,9 @@
 // Dev Containers: Reopen in Container
 {
   "name": "Python",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
+  "image": "ghcr.io/seyoungsong/selenium-dev",
   "remoteEnv": {
-    // VcXsrv - XLaunch
+    // Windows 10: VcXsrv XLaunch
     "DISPLAY": "host.docker.internal:0"
   },
   "customizations": {
