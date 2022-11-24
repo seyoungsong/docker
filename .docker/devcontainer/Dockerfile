@@ -1,4 +1,4 @@
-# docker run -it --rm python:3.11-slim bash
+# docker run -it --rm python:3.11 bash
 FROM python:3.11
 
 # apt
