@@ -1,4 +1,3 @@
-# https://code.visualstudio.com/docs/devcontainers/tips-and-tricks
 # docker run -it --rm python:3.9-slim bash
 FROM python:3.9-slim
 
@@ -21,6 +20,16 @@ RUN apt-get update -y ; \
     # cleanup
     rm -rf /var/lib/apt/lists/*
 
+# pip
+RUN pip install --no-cache-dir --upgrade pip ; \
+    pip install --no-cache-dir \
+    # dev: pip
+    black pylint rope isort \
+    beautifulsoup4 python-dateutil pytz selenium
+
+# dev: tldr
+RUN tldr vi > /dev/null
+
 # dev: ohmyzsh
 RUN chsh -s /bin/zsh ; \
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended ; \
@@ -33,25 +42,15 @@ RUN git config --global user.name "seyoung" ; \
     git config --global pull.ff true ; \
     git config --global core.autocrlf input
 
-# dev: tldr
-RUN tldr vi > /dev/null
-
-# pip
-RUN pip install --no-cache-dir --upgrade pip ; \
-    pip install --no-cache-dir \
-    # dev: pip
-    black pylint rope isort \
-    beautifulsoup4 python-dateutil pytz selenium
-
-# chromium: set display port to avoid crash
-ENV DISPLAY=:99
-
 # dev: apt korean mirror
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak ; \
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list ; \
     sed -i "s/archive.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list ; \
     sed -i "s/security.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list
 
-# dev: zsh
+# chromium: set display port to avoid crash
+ENV DISPLAY=:99
+
+# zsh
 ENTRYPOINT ["tini", "--"]
 CMD ["/bin/zsh"]

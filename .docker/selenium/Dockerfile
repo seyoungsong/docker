@@ -26,5 +26,6 @@ RUN pip install --no-cache-dir --upgrade pip ; \
 # chromium: set display port to avoid crash
 ENV DISPLAY=:99
 
-# print python version
-CMD ["python", "-VV"]
+# zsh
+ENTRYPOINT ["tini", "--"]
+CMD ["/bin/zsh"]
