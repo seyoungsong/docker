@@ -6,12 +6,17 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y ;\
     apt-get upgrade -y ;\
     apt-get install -y -qq --no-install-recommends \
-    apt-transport-https ca-certificates curl git iputils-ping neofetch tini tldr tree unzip vim wget zsh
+    # must
+    curl git tini unzip vim zsh \
+    # small
+    apt-transport-https ca-certificates htop iputils-ping net-tools tldr tree wget qpdf \
+    # large
+    build-essential default-jdk ffmpeg imagemagick neofetch pandoc
 
 # pip
 RUN pip install --no-cache-dir --upgrade pip ;\
     pip install --no-cache-dir \
-    black pylint rope isort
+    "black[jupyter]" pylint rope isort tqdm jupyter
 
 # ohmyzsh
 RUN chsh -s /bin/zsh ;\
