@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  rclone-crontab:
-    image: ghcr.io/seyoungsong/rclone-crontab
-    container_name: rclone-crontab
+  rclone:
+    image: ghcr.io/seyoungsong/rclone
+    container_name: rclone
     restart: unless-stopped
     init: true
     volumes:

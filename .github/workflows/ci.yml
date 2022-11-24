@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: rclone-crontab
+  IMAGE_NAME: rclone
 
 jobs:
   build-image:
