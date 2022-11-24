@@ -3,15 +3,16 @@
 // Dev Containers: Reopen in Container
 {
   "name": "Python",
-  "image": "ghcr.io/seyoungsong/selenium-dev",
+  "image": "ghcr.io/seyoungsong/selenium:dev",
   "remoteEnv": {
-    // Windows 10: VcXsrv XLaunch
-    "DISPLAY": "host.docker.internal:0"
+    "DISPLAY": "host.docker.internal:0" // Windows 10: VcXsrv XLaunch
   },
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black"
       },
       // code --list-extensions > temp.txt
       "extensions": [
