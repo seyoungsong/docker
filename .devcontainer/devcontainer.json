@@ -3,6 +3,7 @@
 // Dev Containers: Reopen in Container
 {
   "name": "DevContainer",
+  // https://hub.docker.com/seyoungsong/devcontainer
   "image": "seyoungsong/devcontainer",
   "remoteEnv": {
     // Windows 10: VcXsrv XLaunch
