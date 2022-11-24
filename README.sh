@@ -1,15 +1,17 @@
 # build
-docker build --tag ghcr.io/seyoungsong/rclone --file .docker/Dockerfile .docker
+docker build --tag seyoungsong/rclone --file .docker/rclone/Dockerfile .docker/rclone
+
+# pull
+docker pull seyoungsong/rclone
 
 # test bash
-docker run -it --rm ghcr.io/seyoungsong/rclone /bin/bash
+docker run -it --rm seyoungsong/rclone /bin/bash
 
-# test cron
-docker run -it --rm ghcr.io/seyoungsong/rclone
+# test CMD
+docker run -it --rm seyoungsong/rclone
 
 # inspect
-docker pull ghcr.io/seyoungsong/rclone
-docker inspect ghcr.io/seyoungsong/rclone >temp.json
+docker inspect seyoungsong/rclone >temp.json
 
 # reset docker
 docker stop $(docker ps -aq)
