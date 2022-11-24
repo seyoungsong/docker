@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y ;\
     apt-get upgrade -y ;\
     apt-get install -y -qq --no-install-recommends \
-    apt-transport-https curl git iputils-ping neofetch tini tldr tree unzip vim wget zsh \
+    apt-transport-https curl git iputils-ping neofetch tini tldr tree unzip vim wget zsh ;\
     rm -rf /var/lib/apt/lists/*
 
 # pip
