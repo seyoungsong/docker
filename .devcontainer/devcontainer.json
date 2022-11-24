@@ -5,12 +5,15 @@
   "name": "DevContainer",
   // https://hub.docker.com/seyoungsong/devcontainer
   "image": "seyoungsong/devcontainer",
+  // https://docs.docker.com/engine/reference/run/#specify-an-init-process
+  "runArgs": ["--init"],
   "remoteEnv": {
     // Windows 10: VcXsrv XLaunch
     "DISPLAY": "host.docker.internal:0"
   },
   "features": {
     // https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+    // TODO: https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docker-in-docker-debian.sh
     "ghcr.io/devcontainers/features/docker-in-docker:1": {}
   },
   "customizations": {
