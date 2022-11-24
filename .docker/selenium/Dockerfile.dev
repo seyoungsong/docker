@@ -1,4 +1,4 @@
-# docker run -it --rm python:3.9-slim bash
+# docker run -it --rm ghcr.io/seyoungsong/selenium bash
 FROM ghcr.io/seyoungsong/selenium
 
 # apt
