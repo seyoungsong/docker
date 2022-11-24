@@ -1,8 +1,5 @@
 # docker run -it --rm python:3.9-slim bash
-FROM python:3.9-slim
-
-# korean timezone
-RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+FROM python:3.10-slim
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
@@ -11,12 +8,6 @@ RUN apt-get update -y ; \
     apt-get install -y -qq --no-install-recommends \
     # dev: cli tools
     apt-transport-https curl git iputils-ping neofetch tini tldr tree unzip vim wget zsh \
-    # chromium
-    chromium-l10n chromium-driver \
-    # fonts
-    fonts-noto-cjk fonts-noto-mono fonts-noto-color-emoji \
-    # etc
-    ca-certificates python3-lxml ; \
     # cleanup
     rm -rf /var/lib/apt/lists/*
 
@@ -24,8 +15,7 @@ RUN apt-get update -y ; \
 RUN pip install --no-cache-dir --upgrade pip ; \
     pip install --no-cache-dir \
     # dev: pip
-    black pylint rope isort \
-    beautifulsoup4 python-dateutil pytz selenium
+    black pylint rope isort
 
 # dev: tldr
 RUN tldr vi > /dev/null
@@ -47,9 +37,6 @@ RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak ; \
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list ; \
     sed -i "s/archive.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list ; \
     sed -i "s/security.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list
-
-# chromium: set display port to avoid crash
-ENV DISPLAY=:99
 
 # zsh
 ENTRYPOINT ["tini", "--"]

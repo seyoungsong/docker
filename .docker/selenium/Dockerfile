@@ -1,5 +1,5 @@
 # docker run -it --rm python:3.9-slim bash
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 # korean timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
@@ -10,11 +10,9 @@ RUN apt-get update -y ; \
     apt-get upgrade -y ; \
     apt-get install -y -qq --no-install-recommends \
     # chromium
-    chromium-l10n chromium-driver \
+    chromium-l10n chromium-driver ca-certificates \
     # fonts
-    fonts-noto-cjk fonts-noto-mono fonts-noto-color-emoji \
-    # etc
-    ca-certificates python3-lxml ; \
+    fonts-noto-cjk fonts-noto-mono fonts-noto-color-emoji ; \
     # cleanup
     rm -rf /var/lib/apt/lists/*
 
