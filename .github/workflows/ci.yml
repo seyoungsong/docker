@@ -47,3 +47,13 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}:latest
             ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:latest
+      - name: Build and push (Dev)
+        uses: docker/build-push-action@v3
+        with:
+          context: .docker/${{ matrix.image }}
+          file: .docker/${{ matrix.image }}/Dockerfile.dev
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.image }}:dev
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.image }}:dev
