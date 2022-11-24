@@ -1,5 +1,5 @@
-# docker run -it --rm python:3.9-slim bash
-FROM python:3.10-slim
+# docker run -it --rm python:3.11-slim bash
+FROM python:3.11-slim
 
 # korean timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
