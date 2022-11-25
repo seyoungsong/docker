@@ -14,10 +14,10 @@ RUN apt-get update -y && \
     curl git tini unzip wget zsh && \
     rm -rf /var/lib/apt/lists/*
 
-# pip
+# pip: essential
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
-    "black[jupyter]" isort jupyter pylint rope tqdm
+    "black[jupyter]" isort jupyter pylint rope
 
 # ohmyzsh
 RUN chsh -s /bin/zsh && \
@@ -30,14 +30,14 @@ RUN wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3
     ./shfmt --version && \
     mv shfmt /usr/local/bin
 
-# dev
-RUN  && \
+# config
+RUN true && \
     # git
     git config --global user.name "seyoung" && \
-    git config --global user.email "seyoung@docker" && \
+    git config --global user.email "seyoung@devcontainer" && \
+    git config --global core.autocrlf input && \
     git config --global core.quotepath false && \
     git config --global pull.ff true && \
-    git config --global core.autocrlf input && \
     # korean apt mirror
     cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list && \
