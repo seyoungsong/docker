@@ -1,10 +1,11 @@
-// https://github.com/microsoft/vscode-remote-try-python/blob/main/.devcontainer/devcontainer.json
-// https://containers.dev/implementors/json_reference/
+// https://github.com/seyoungsong/docker/blob/master/.devcontainer/devcontainer.json
 // Dev Containers: Reopen in Container
 {
+  // https://containers.dev/implementors/json_reference/
   "name": "DevContainer",
   // https://hub.docker.com/r/seyoungsong/devcontainer
-  // docker run -it --rm --privileged seyoungsong/devcontainer zsh
+  // https://github.com/seyoungsong/docker/blob/master/.docker/devcontainer/Dockerfile
+  // docker run -it --rm --init --privileged seyoungsong/devcontainer zsh
   "image": "seyoungsong/devcontainer",
   // https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
   "runArgs": ["--init", "--privileged"],
@@ -12,10 +13,6 @@
   "remoteEnv": {
     // Windows 10: VcXsrv XLaunch
     "DISPLAY": "host.docker.internal:0"
-  },
-  "features": {
-    // https://github.com/devcontainers/features/tree/main/src/docker-in-docker
-    // "ghcr.io/devcontainers/features/docker-in-docker:1": {}
   },
   "customizations": {
     "vscode": {
