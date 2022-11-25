@@ -4,15 +4,16 @@
 
 // Reference:         https://containers.dev/implementors/json_reference/
 // Docker-in-Docker:  https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
+//                    https://github.com/devcontainers/features/tree/main/src/docker-in-docker#example-usage
 
-// Usage: Dev Containers: Reopen in Container
+// Usage: Dev Containers Reopen
+// Windows 10 GUI: VcXsrv XLaunch
 {
   "name": "Base",
   "image": "seyoungsong/devcontainer",
   "runArgs": ["--init", "--privileged"],
   "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteEnv": {
-    // Windows 10: VcXsrv XLaunch
     "DISPLAY": "host.docker.internal:0"
   },
   "customizations": {
