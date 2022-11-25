@@ -6,10 +6,10 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # apt: install cron, rclone
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update ;\
+RUN apt-get update && \
     apt-get install -y -qq --no-install-recommends \
-    cron curl unzip ca-certificates dos2unix ;\
-    curl https://rclone.org/install.sh | bash ;\
+    cron curl unzip ca-certificates dos2unix && \
+    curl https://rclone.org/install.sh | bash && \
     rm -rf /var/lib/apt/lists/*
 
 # copy sample files
@@ -18,7 +18,7 @@ COPY cronjob.sh /cronjob.sh
 
 # set entrypoint
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 0744 /entrypoint.sh ;\
+RUN chmod 0744 /entrypoint.sh && \
     dos2unix /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 

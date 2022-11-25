@@ -6,18 +6,18 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y ;\
-    apt-get upgrade -y ;\
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     # chromium
     chromium-l10n chromium-driver ca-certificates \
     # fonts
-    fonts-noto-cjk fonts-noto-mono fonts-noto-color-emoji ;\
+    fonts-noto-cjk fonts-noto-mono fonts-noto-color-emoji && \
     # cleanup
     rm -rf /var/lib/apt/lists/*
 
 # pip
-RUN pip install --no-cache-dir --upgrade pip ;\
+RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
     beautifulsoup4 python-dateutil pytz selenium
 
