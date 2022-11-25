@@ -11,7 +11,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    curl git tini unzip wget zsh && \
+    curl git tini tldr unzip wget zsh && \
     rm -rf /var/lib/apt/lists/*
 
 # pip: essential
@@ -30,6 +30,10 @@ RUN wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3
     ./shfmt --version && \
     mv shfmt /usr/local/bin
 
+# tldr
+RUN mkdir -p ~/.local/share/tldr && \
+    tldr --update
+
 # config
 RUN true && \
     # git
@@ -46,6 +50,8 @@ RUN true && \
     # korean timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
+# TODO: latex, jekyll
+
 # apt: extra
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
@@ -54,12 +60,17 @@ RUN apt-get update -y && \
     # small
     apt-transport-https ca-certificates htop iputils-ping net-tools tldr tree qpdf vim \
     # large
-    build-essential default-jdk ffmpeg imagemagick neofetch pandoc && \
+    build-essential default-jdk ffmpeg imagemagick neofetch pandoc \
+    # chromium
+    chromium-l10n chromium-driver fonts-noto-cjk \
+    && \
     # clean up
-    rm -rf /var/lib/apt/lists/* && \
-    # tldr sync
-    tldr vi > /dev/null
-# TODO: latex, jekyll, chromium
+    rm -rf /var/lib/apt/lists/*
+
+# pip: extra
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
+    beautifulsoup4 python-dateutil pytz selenium
 
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
 # https://github.com/krallin/tini#existing-entrypoint
