@@ -9,12 +9,13 @@ RUN true && \
     apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    # latex
-    texlive-full \
-    && \
+    # latex, perl
+    texlive-full perl cpanminus && \
+    # latexindent
+    wget https://raw.github.com/cmhughes/latexindent.pl/main/helper-scripts/latexindent-module-installer.pl && \
+    bash -c "echo Y | perl latexindent-module-installer.pl" && \
+    rm -rf latexindent-module-installer.pl && \
     # clean up
     rm -rf /var/lib/apt/lists/* && \
     # korean apt mirror
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list
-
-# TODO: latex, perl, latexindent

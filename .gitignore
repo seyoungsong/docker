@@ -1,7 +1,7 @@
 # me
+temp/
 temp.*
 *.log
-
 
 # Windows thumbnail cache files
 Thumbs.db
