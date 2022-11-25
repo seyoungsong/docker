@@ -15,6 +15,8 @@ RUN apt-get update -y ;\
     # clean up
     rm -rf /var/lib/apt/lists/*
 
+# TODO: latex, jekyll, chromium
+
 # pip
 RUN pip install --no-cache-dir --upgrade pip ;\
     pip install --no-cache-dir \
