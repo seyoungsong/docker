@@ -1,6 +1,15 @@
 # docker run -it --rm python:3.11 bash
 FROM python:3.11
 
+# docker-in-docker
+# https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
+ENV DOCKER_BUILDKIT=1
+# https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+RUN bash -c "$(curl -fsSL https://raw.github.com/devcontainers/features/main/src/docker-in-docker/install.sh)"
+# https://github.com/krallin/tini#existing-entrypoint
+ENTRYPOINT ["tini", "--", "/usr/local/share/docker-init.sh"]
+VOLUME ["/var/lib/docker"]
+
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y ;\
@@ -32,15 +41,6 @@ RUN wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3
     chmod +x shfmt ;\
     ./shfmt --version ;\
     mv shfmt /usr/local/bin
-
-# docker-in-docker
-# https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
-ENV DOCKER_BUILDKIT=1
-# https://github.com/devcontainers/features/tree/main/src/docker-in-docker
-RUN bash -c "$(curl -fsSL https://raw.github.com/devcontainers/features/main/src/docker-in-docker/install.sh)"
-# https://github.com/krallin/tini#existing-entrypoint
-ENTRYPOINT ["tini", "--", "/usr/local/share/docker-init.sh"]
-VOLUME ["/var/lib/docker"]
 
 # dev
 RUN tldr vi > /dev/null ;\
