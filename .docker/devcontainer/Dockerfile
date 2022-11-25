@@ -19,19 +19,19 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
     "black[jupyter]" isort jupyter pylint rope
 
-# ohmyzsh
-RUN chsh -s /bin/zsh && \
+# other: essential
+RUN true && \
+    # ohmyzsh
+    chsh -s /bin/zsh && \
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
-    sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc
-
-# shellformat
-RUN wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3.5.1_linux_$(dpkg --print-architecture)" && \
+    sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc && \
+    # shellformat
+    wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3.5.1_linux_$(dpkg --print-architecture)" && \
     chmod +x shfmt && \
     ./shfmt --version && \
-    mv shfmt /usr/local/bin
-
-# tldr
-RUN mkdir -p ~/.local/share/tldr && \
+    mv shfmt /usr/local/bin && \
+    # tldr
+    mkdir -p ~/.local/share/tldr && \
     tldr --update
 
 # TODO: latex
