@@ -3,8 +3,8 @@
 // Dev Containers: Reopen in Container
 {
   "name": "DevContainer",
-  // https://hub.docker.com/seyoungsong/devcontainer
-  // docker run -it --rm seyoungsong/devcontainer zsh
+  // https://hub.docker.com/r/seyoungsong/devcontainer
+  // docker run -it --rm --privileged seyoungsong/devcontainer zsh
   "image": "seyoungsong/devcontainer",
   // https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
   "runArgs": ["--init", "--privileged"],

@@ -18,3 +18,4 @@ docker stop $(docker ps -aq)
 docker rm $(docker ps -aq)
 docker rmi -f $(docker images -aq)
 docker system prune --all --force
+docker volume prune --force
