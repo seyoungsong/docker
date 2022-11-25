@@ -40,7 +40,6 @@ RUN true && \
     mkdir -p ~/.local/share/tldr && \
     tldr --update
 
-# TODO: latex, perl, latexindent
 # apt: extra
 RUN apt-get update -y && \
     apt-get upgrade -y && \
@@ -70,6 +69,7 @@ RUN apt-get update -y && \
 # pip: extra
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
+    # selenium
     beautifulsoup4 python-dateutil pytz selenium
 
 # personal config

@@ -2,13 +2,14 @@
 // Dev Containers: Reopen in Container
 {
   // https://containers.dev/implementors/json_reference/
-  "name": "DevContainer",
+  "name": "Base",
   // https://hub.docker.com/r/seyoungsong/devcontainer
   // https://github.com/seyoungsong/docker/blob/master/.docker/devcontainer/Dockerfile
   // docker run -it --rm --init --privileged seyoungsong/devcontainer zsh
   "image": "seyoungsong/devcontainer",
   // https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
   "runArgs": ["--init", "--privileged"],
+  "overrideCommand": false, // only when entrypoint is docker-init.sh
   "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteEnv": {
     // Windows 10: VcXsrv XLaunch
