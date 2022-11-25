@@ -24,15 +24,23 @@
       },
       // code --list-extensions > temp.txt
       "extensions": [
+        "be5invis.toml",
+        "bierner.github-markdown-preview",
         "bierner.markdown-preview-github-styles",
         "codezombiech.gitignore",
+        "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "foxundermoon.shell-format",
+        "matthewpi.caddyfile-support",
         "ms-azuretools.vscode-docker",
         "ms-ceintl.vscode-language-pack-ko",
         "ms-python.python",
+        "redhat.vscode-xml",
         "redhat.vscode-yaml",
+        "tomoki1207.pdf",
         "yzhang.markdown-all-in-one"
+        // "James-Yu.latex-workshop",
+        // "notZaki.pandocciter",
       ]
     }
   }
