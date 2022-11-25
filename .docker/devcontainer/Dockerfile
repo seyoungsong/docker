@@ -11,7 +11,9 @@ RUN apt-get update -y ;\
     # small
     apt-transport-https ca-certificates htop iputils-ping net-tools tldr tree wget qpdf \
     # large
-    build-essential default-jdk ffmpeg imagemagick neofetch pandoc
+    build-essential default-jdk ffmpeg imagemagick neofetch pandoc ;\
+    # clean up
+    rm -rf /var/lib/apt/lists/*
 
 # pip
 RUN pip install --no-cache-dir --upgrade pip ;\
