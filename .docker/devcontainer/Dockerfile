@@ -23,6 +23,15 @@ RUN chsh -s /bin/zsh ;\
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended ;\
     sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc
 
+# docker-in-docker
+# https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
+ENV DOCKER_BUILDKIT=1
+# https://github.com/devcontainers/features/tree/main/src/docker-in-docker
+RUN bash -c "$(curl -fsSL https://raw.github.com/devcontainers/features/main/src/docker-in-docker/install.sh)"
+# https://github.com/krallin/tini#existing-entrypoint
+ENTRYPOINT ["tini", "--", "/usr/local/share/docker-init.sh"]
+VOLUME ["/var/lib/docker"]
+
 # dev
 RUN tldr vi > /dev/null ;\
     # git
@@ -40,5 +49,4 @@ RUN tldr vi > /dev/null ;\
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # zsh
-ENTRYPOINT ["tini", "--"]
 CMD ["/bin/zsh"]
