@@ -34,11 +34,13 @@ RUN true && \
     wget -O caddy.deb "https://github.com/caddyserver/caddy/releases/download/v2.6.2/caddy_2.6.2_linux_$(dpkg --print-architecture).deb" && \
     dpkg -i caddy.deb && \
     rm -rf caddy.deb && \
+    # rclone
+    bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
     # tldr
     mkdir -p ~/.local/share/tldr && \
     tldr --update
 
-# TODO: latex
+# TODO: latex, perl, latexindent
 # apt: extra
 RUN apt-get update -y && \
     apt-get upgrade -y && \
