@@ -53,7 +53,6 @@ RUN true && \
 # TODO: latex, jekyll
 
 # apt: extra
-ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
@@ -66,6 +65,12 @@ RUN apt-get update -y && \
     && \
     # clean up
     rm -rf /var/lib/apt/lists/*
+
+# jekyll
+RUN apt-get update -y && \
+    apt-get install -y -qq --no-install-recommends \
+    ruby-full zlib1g-dev nodejs && \
+    gem install jekyll bundler
 
 # pip: extra
 RUN pip install --no-cache-dir --upgrade pip && \
