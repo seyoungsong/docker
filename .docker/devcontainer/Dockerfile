@@ -25,7 +25,7 @@ RUN apt-get update -y && \
 # pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
-    "black[jupyter]" pylint rope isort tqdm jupyter
+    "black[jupyter]" isort jupyter pylint rope tqdm
 
 # ohmyzsh
 RUN chsh -s /bin/zsh && \
