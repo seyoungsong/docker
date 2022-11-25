@@ -30,6 +30,10 @@ RUN true && \
     chmod +x shfmt && \
     ./shfmt --version && \
     mv shfmt /usr/local/bin && \
+    # caddy
+    wget -O caddy.deb "https://github.com/caddyserver/caddy/releases/download/v2.6.2/caddy_2.6.2_linux_$(dpkg --print-architecture).deb" && \
+    dpkg -i caddy.deb && \
+    rm -rf caddy.deb && \
     # tldr
     mkdir -p ~/.local/share/tldr && \
     tldr --update
@@ -39,12 +43,22 @@ RUN true && \
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    # small
-    apt-transport-https ca-certificates htop iputils-ping net-tools tldr tree qpdf vim \
-    # large
-    build-essential default-jdk ffmpeg imagemagick neofetch pandoc \
+    # system
+    apt-transport-https ca-certificates \
+    # util
+    htop less tree vim neofetch \
+    # network
+    net-tools iputils-ping \
+    # pdf
+    qpdf pdftk-java enscript ghostscript \
+    # latex
+    pandoc \
+    # media
+    ffmpeg imagemagick \
     # chromium
     chromium-l10n chromium-driver fonts-noto-cjk \
+    # dev
+    build-essential default-jdk \
     # ruby
     ruby-full zlib1g-dev nodejs \
     && \
