@@ -1,19 +1,14 @@
-# docker run -it --rm python:3.11-slim bash
-FROM python:3.11-slim
-
-# korean timezone
-RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+# docker run -it --rm python:3.11 bash
+FROM python:3.11
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    # chromium
-    chromium-l10n chromium-driver ca-certificates \
-    # fonts
-    fonts-noto-cjk fonts-noto-mono fonts-noto-color-emoji && \
+    chromium-l10n chromium-driver fonts-noto-cjk ca-certificates \
     # cleanup
+    && \
     rm -rf /var/lib/apt/lists/*
 
 # pip
