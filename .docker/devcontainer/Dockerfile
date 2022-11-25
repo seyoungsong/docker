@@ -15,7 +15,7 @@ RUN apt-get update -y ;\
     # clean up
     rm -rf /var/lib/apt/lists/*
 
-# TODO: latex, jekyll, chromium, shellformat.path
+# TODO: latex, jekyll, chromium
 
 # pip
 RUN pip install --no-cache-dir --upgrade pip ;\
@@ -26,6 +26,12 @@ RUN pip install --no-cache-dir --upgrade pip ;\
 RUN chsh -s /bin/zsh ;\
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended ;\
     sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc
+
+# shellformat
+RUN wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3.5.1_linux_$(dpkg --print-architecture)" ;\
+    chmod +x shfmt ;\
+    ./shfmt --version ;\
+    mv shfmt /usr/local/bin
 
 # docker-in-docker
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
