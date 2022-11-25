@@ -53,7 +53,7 @@ RUN apt-get update -y && \
     net-tools iputils-ping \
     # pdf
     qpdf pdftk-java enscript ghostscript \
-    # latex
+    # markdown
     pandoc \
     # media
     ffmpeg imagemagick \
