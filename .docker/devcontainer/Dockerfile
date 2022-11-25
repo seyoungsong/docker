@@ -12,13 +12,23 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     # must
-    curl git tini unzip vim wget zsh \
+    curl git tini unzip wget zsh && \
+    # clean up
+    rm -rf /var/lib/apt/lists/*
+
+# apt
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y -qq --no-install-recommends \
     # small
-    apt-transport-https ca-certificates htop iputils-ping net-tools tldr tree qpdf \
+    apt-transport-https ca-certificates htop iputils-ping net-tools tldr tree qpdf vim \
     # large
     build-essential default-jdk ffmpeg imagemagick neofetch pandoc && \
     # clean up
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    # tldr sync
+    tldr vi > /dev/null
 
 # TODO: latex, jekyll, chromium
 
@@ -39,7 +49,7 @@ RUN wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3
     mv shfmt /usr/local/bin
 
 # dev
-RUN tldr vi > /dev/null && \
+RUN  && \
     # git
     git config --global user.name "seyoung" && \
     git config --global user.email "seyoung@docker" && \
