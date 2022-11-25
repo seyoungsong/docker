@@ -1,15 +1,15 @@
-// https://github.com/seyoungsong/docker/blob/master/.devcontainer/devcontainer.json
-// Dev Containers: Reopen in Container
+// devcontainer.json: https://github.com/seyoungsong/docker/blob/master/.devcontainer/devcontainer.json
+// Dockerfile:        https://github.com/seyoungsong/docker/blob/master/.docker/devcontainer/Dockerfile
+// Image:             https://hub.docker.com/r/seyoungsong/devcontainer
+
+// Reference:         https://containers.dev/implementors/json_reference/
+// Docker-in-Docker:  https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
+
+// Usage: Dev Containers: Reopen in Container
 {
-  // https://containers.dev/implementors/json_reference/
   "name": "Base",
-  // https://hub.docker.com/r/seyoungsong/devcontainer
-  // https://github.com/seyoungsong/docker/blob/master/.docker/devcontainer/Dockerfile
-  // docker run -it --rm --init --privileged seyoungsong/devcontainer zsh
   "image": "seyoungsong/devcontainer",
-  // https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
   "runArgs": ["--init", "--privileged"],
-  "overrideCommand": false, // only when entrypoint is docker-init.sh
   "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteEnv": {
     // Windows 10: VcXsrv XLaunch
@@ -18,9 +18,9 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "shellformat.path": "/usr/local/bin/shfmt",
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "shellformat.path": "/usr/local/bin/shfmt"
       },
       // code --list-extensions > temp.txt
       "extensions": [
