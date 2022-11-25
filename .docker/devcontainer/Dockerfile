@@ -4,11 +4,7 @@ FROM python:3.11
 # docker-in-docker
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
 ENV DOCKER_BUILDKIT=1
-# https://github.com/devcontainers/features/tree/main/src/docker-in-docker
 RUN bash -c "$(curl -fsSL https://raw.github.com/devcontainers/features/main/src/docker-in-docker/install.sh)"
-# https://github.com/krallin/tini#existing-entrypoint
-ENTRYPOINT ["tini", "--", "/usr/local/share/docker-init.sh"]
-VOLUME ["/var/lib/docker"]
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
@@ -58,5 +54,8 @@ RUN tldr vi > /dev/null ;\
     # korean timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
-# zsh
-CMD ["/bin/zsh"]
+# https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
+# https://github.com/krallin/tini#existing-entrypoint
+ENTRYPOINT ["tini", "--", "/usr/local/share/docker-init.sh"]
+VOLUME ["/var/lib/docker"]
+CMD ["sleep", "infinity"]
