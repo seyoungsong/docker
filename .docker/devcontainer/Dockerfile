@@ -45,15 +45,11 @@ RUN apt-get update -y && \
     build-essential default-jdk ffmpeg imagemagick neofetch pandoc \
     # chromium
     chromium-l10n chromium-driver fonts-noto-cjk \
+    # ruby
+    ruby-full zlib1g-dev nodejs \
     && \
     # clean up
     rm -rf /var/lib/apt/lists/*
-
-# jekyll
-RUN apt-get update -y && \
-    apt-get install -y -qq --no-install-recommends \
-    ruby-full zlib1g-dev nodejs && \
-    gem install jekyll bundler
 
 # pip: extra
 RUN pip install --no-cache-dir --upgrade pip && \
