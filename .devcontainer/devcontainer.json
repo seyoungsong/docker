@@ -2,7 +2,7 @@
 // Dockerfile:        https://github.com/seyoungsong/docker/blob/master/.docker/devcontainer/Dockerfile
 // Image:             https://hub.docker.com/r/seyoungsong/devcontainer
 
-// Reference:         https://containers.dev/implementors/json_reference/
+// Json Reference:    https://containers.dev/implementors/json_reference/
 // Docker-in-Docker:  https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
 //                    https://github.com/devcontainers/features/tree/main/src/docker-in-docker#example-usage
 
@@ -12,6 +12,7 @@
   "name": "Base",
   "image": "seyoungsong/devcontainer",
   "runArgs": ["--init", "--privileged"],
+  "overrideCommand": false,
   "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteEnv": {
     "DISPLAY": "host.docker.internal:0"

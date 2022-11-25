@@ -89,7 +89,6 @@ RUN true && \
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
-# https://github.com/krallin/tini#existing-entrypoint
-ENTRYPOINT ["tini", "--", "/usr/local/share/docker-init.sh"]
+ENTRYPOINT ["/usr/local/share/docker-init.sh"]
 VOLUME ["/var/lib/docker"]
 CMD ["sleep", "infinity"]
