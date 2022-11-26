@@ -45,7 +45,7 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     # system
-    apt-transport-https ca-certificates \
+    apt-transport-https ca-certificates fuse \
     # util
     htop less tree vim neofetch \
     # network
