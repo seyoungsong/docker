@@ -14,7 +14,7 @@ RUN apt-get update -y && \
 # pip
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
-    beautifulsoup4 python-dateutil pytz selenium
+    beautifulsoup4 python-dateutil pytz schedule selenium
 
 # chromium: set display port to avoid crash
 ENV DISPLAY=:99
