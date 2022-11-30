@@ -1,5 +1,5 @@
-# docker run -it --rm python:3.11 bash
-FROM python:3.11
+# docker run -it --rm python:3.11-slim bash
+FROM python:3.11-slim
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
