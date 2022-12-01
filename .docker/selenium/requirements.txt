@@ -1,0 +1,7 @@
+apprise
+beautifulsoup4
+python-dateutil
+pytz
+schedule
+selenium
+undetected-chromedriver

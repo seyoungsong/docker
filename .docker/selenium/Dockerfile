@@ -6,17 +6,19 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    chromium-l10n chromium-driver fonts-noto-cjk ca-certificates \
+    chromium-l10n chromium-driver ca-certificates \
+    fonts-noto-cjk fonts-noto-color-emoji \
     # cleanup
     && \
     rm -rf /var/lib/apt/lists/*
 
 # pip
+ENV PIP_ROOT_USER_ACTION=ignore
+COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir \
-    beautifulsoup4 python-dateutil pytz schedule selenium
+    pip install --no-cache-dir -r /requirements.txt
 
-# chromium: set display port to avoid crash
+# set display port to avoid chromium crash
 ENV DISPLAY=:99
 
 # print python version
