@@ -7,7 +7,19 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     chromium-l10n chromium-driver ca-certificates \
-    fonts-noto-cjk fonts-noto-color-emoji \
+    # fonts from https://github.com/browserless/chrome/blob/master/base/Dockerfile
+    fonts-freefont-ttf \
+    fonts-gfs-neohellenic \
+    fonts-indic \
+    fonts-ipafont-gothic \
+    fonts-kacst \
+    fonts-liberation \
+    fonts-noto-cjk \
+    fonts-noto-color-emoji \
+    fonts-roboto \
+    fonts-thai-tlwg \
+    fonts-ubuntu \
+    fonts-wqy-zenhei \
     # cleanup
     && \
     rm -rf /var/lib/apt/lists/*

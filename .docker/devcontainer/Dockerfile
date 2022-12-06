@@ -11,13 +11,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    curl git tini tldr unzip wget zsh && \
+    apt-transport-https ca-certificates curl git tldr unzip wget zsh && \
     rm -rf /var/lib/apt/lists/*
 
 # pip: essential
+COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir \
-    "black[jupyter]" isort jupyter pylint rope
+    pip install --no-cache-dir -r /requirements.txt
 
 # other: essential
 RUN true && \
@@ -36,6 +36,8 @@ RUN true && \
     rm -rf caddy.deb && \
     # rclone
     bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
+    # taskfile
+    sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
     # tldr
     mkdir -p ~/.local/share/tldr && \
     tldr --update
@@ -45,7 +47,7 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     # system
-    apt-transport-https ca-certificates fuse \
+    fuse \
     # util
     htop less tree vim neofetch \
     # network
@@ -57,20 +59,27 @@ RUN apt-get update -y && \
     # media
     ffmpeg imagemagick \
     # chromium
-    chromium-l10n chromium-driver fonts-noto-cjk \
+    chromium-l10n chromium-driver \
     # dev
     build-essential default-jdk \
     # ruby
     ruby-full zlib1g-dev nodejs \
+    # fonts from https://github.com/browserless/chrome/blob/master/base/Dockerfile
+    fonts-freefont-ttf \
+    fonts-gfs-neohellenic \
+    fonts-indic \
+    fonts-ipafont-gothic \
+    fonts-kacst \
+    fonts-liberation \
+    fonts-noto-cjk \
+    fonts-noto-color-emoji \
+    fonts-roboto \
+    fonts-thai-tlwg \
+    fonts-ubuntu \
+    fonts-wqy-zenhei \
     && \
     # clean up
     rm -rf /var/lib/apt/lists/*
-
-# pip: extra
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir \
-    # selenium
-    beautifulsoup4 python-dateutil pytz selenium
 
 # personal config
 RUN true && \
@@ -80,12 +89,12 @@ RUN true && \
     git config --global core.autocrlf input && \
     git config --global core.quotepath false && \
     git config --global pull.ff true && \
-    # korean apt mirror
+    # apt mirror
     cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list && \
     sed -i "s/archive.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list && \
     sed -i "s/security.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list && \
-    # korean timezone
+    # timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
