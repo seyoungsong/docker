@@ -75,7 +75,6 @@ RUN apt-get update -y && \
     fonts-noto-color-emoji \
     fonts-roboto \
     fonts-thai-tlwg \
-    fonts-ubuntu \
     fonts-wqy-zenhei \
     && \
     # clean up
