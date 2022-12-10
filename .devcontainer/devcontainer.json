@@ -11,7 +11,7 @@
 {
   "name": "Base",
   "image": "seyoungsong/devcontainer",
-  "runArgs": ["--init", "--privileged", "--shm-size=2gb"],
+  "runArgs": ["--init", "--privileged", "--shm-size=2gb", "--gpus", "all"],
   "overrideCommand": false,
   "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteEnv": {
@@ -42,8 +42,6 @@
         "redhat.vscode-xml",
         "redhat.vscode-yaml",
         "yzhang.markdown-all-in-one"
-        // "matthewpi.caddyfile-support",
-        // "tomoki1207.pdf",
       ]
     }
   }
