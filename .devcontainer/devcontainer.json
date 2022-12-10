@@ -11,12 +11,14 @@
 {
   "name": "Base",
   "image": "seyoungsong/devcontainer",
-  "runArgs": ["--init", "--privileged"],
+  "runArgs": ["--init", "--privileged", "--shm-size=2gb"],
   "overrideCommand": false,
   "mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteEnv": {
-    "DISPLAY": "host.docker.internal:0"
+    "DISPLAY": "host.docker.internal:0",
+    "PIP_ROOT_USER_ACTION": "ignore"
   },
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
   "customizations": {
     "vscode": {
       "settings": {
@@ -33,16 +35,15 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "foxundermoon.shell-format",
-        "matthewpi.caddyfile-support",
+        "mhutchie.git-graph",
         "ms-azuretools.vscode-docker",
         "ms-ceintl.vscode-language-pack-ko",
         "ms-python.python",
         "redhat.vscode-xml",
         "redhat.vscode-yaml",
-        "tomoki1207.pdf",
         "yzhang.markdown-all-in-one"
-        // "James-Yu.latex-workshop",
-        // "notZaki.pandocciter",
+        // "matthewpi.caddyfile-support",
+        // "tomoki1207.pdf",
       ]
     }
   }
