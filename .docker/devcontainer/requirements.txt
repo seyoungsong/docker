@@ -1,11 +1,4 @@
 black
-flake8
 isort
-mypy
-pyclean
 pylint
-pytest
-pytest-cov
-pytest-sugar
-pytest-xdist
 rope
