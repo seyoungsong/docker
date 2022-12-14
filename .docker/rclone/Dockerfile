@@ -4,7 +4,7 @@ FROM debian:stable-slim
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && \
-    apt-get upgrade -y && \
+    # apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     ca-certificates cron curl dos2unix unzip \
     # cleanup
@@ -14,7 +14,7 @@ RUN apt-get update -y && \
 # rclone
 RUN bash -c "$(curl -fsSL https://rclone.org/install.sh)"
 
-# personal config: korean timezone
+# timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # copy
