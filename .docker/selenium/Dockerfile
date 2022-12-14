@@ -3,10 +3,16 @@ FROM python:3.11-slim
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y && \
+RUN true && \
+    # add non-free to apt sources
+    echo "deb http://deb.debian.org/debian stable main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian stable-updates main contrib non-free" >> /etc/apt/sources.list && \
+    # update, install
+    apt-get update -y && \
     apt-get install -y -qq --no-install-recommends \
+    # chromium
     chromium-l10n chromium-driver ca-certificates \
-    # fonts from https://github.com/browserless/chrome/blob/master/base/Dockerfile
+    # fonts
     fonts-ubuntu \
     fonts-noto-cjk-extra \
     fonts-noto-color-emoji \
