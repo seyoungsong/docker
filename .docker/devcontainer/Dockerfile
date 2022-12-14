@@ -76,12 +76,10 @@ RUN true && \
     git config --global core.autocrlf input && \
     git config --global core.quotepath false && \
     git config --global pull.ff true && \
-    # apt mirror
+    # apt mirror: korean
     cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list && \
-    sed -i "s/archive.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list && \
-    sed -i "s/security.ubuntu.com/mirror.misakamikoto.network/g" /etc/apt/sources.list && \
-    # timezone
+    # timezone: korean
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
