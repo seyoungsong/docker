@@ -1,42 +1,49 @@
-# docker run -it --rm python:3.11 bash
-FROM python:3.11
+# docker run -it --rm python:3.11-bullseye bash
+FROM python:3.11-bullseye
 
 # docker-in-docker
 # https://github.com/microsoft/vscode-dev-containers/blob/main/script-library/docs/docker-in-docker.md#script-use
 ENV DOCKER_BUILDKIT=1
 RUN bash -c "$(curl -fsSL https://raw.github.com/devcontainers/features/main/src/docker-in-docker/install.sh)"
 
-# apt: essential
+# apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
+RUN true && \
+    # non-free
+    echo "deb http://deb.debian.org/debian bullseye main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian bullseye-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list && \
+    apt-get update -y && \
+    # apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
     apt-transport-https ca-certificates curl git tldr unzip wget zsh && \
     rm -rf /var/lib/apt/lists/*
 
-# pip: essential
-COPY requirements.txt /requirements.txt
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r /requirements.txt
+# pip
+RUN pip install --no-cache-dir \
+    black \
+    isort \
+    pylint \
+    rope
 
 # other: essential
 RUN true && \
-    # ohmyzsh
+    # ohmyzsh | https://github.com/ohmyzsh/ohmyzsh#basic-installation
     chsh -s /bin/zsh && \
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
     sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc && \
-    # shellformat
-    wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.5.1/shfmt_v3.5.1_linux_$(dpkg --print-architecture)" && \
+    # shellformat | https://github.com/mvdan/sh/releases
+    wget -O shfmt "https://github.com/mvdan/sh/releases/download/v3.6.0/shfmt_v3.6.0_linux_$(dpkg --print-architecture)" && \
     chmod +x shfmt && \
     ./shfmt --version && \
     mv shfmt /usr/local/bin && \
-    # caddy
+    # caddy | https://github.com/caddyserver/caddy/releases
     wget -O caddy.deb "https://github.com/caddyserver/caddy/releases/download/v2.6.2/caddy_2.6.2_linux_$(dpkg --print-architecture).deb" && \
     dpkg -i caddy.deb && \
     rm -rf caddy.deb && \
-    # rclone
+    # rclone | https://rclone.org/downloads
     bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
-    # taskfile
+    # taskfile | https://taskfile.dev/installation/#install-script
     sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
     # tldr
     mkdir -p ~/.local/share/tldr && \
@@ -44,38 +51,19 @@ RUN true && \
 
 # apt: extra
 RUN apt-get update -y && \
-    apt-get upgrade -y && \
     apt-get install -y -qq --no-install-recommends \
-    # system
-    fuse \
     # util
-    htop less tree vim neofetch \
+    htop less tree vim neofetch fuse \
     # network
     net-tools iputils-ping \
     # pdf
-    qpdf pdftk-java enscript ghostscript \
-    # markdown
-    pandoc \
-    # media
-    ffmpeg imagemagick \
+    pandoc qpdf \
     # chromium
     chromium-l10n chromium-driver \
-    # dev
-    build-essential default-jdk \
-    # ruby
-    ruby-full zlib1g-dev nodejs \
-    # fonts from https://github.com/browserless/chrome/blob/master/base/Dockerfile
-    fonts-freefont-ttf \
-    fonts-gfs-neohellenic \
-    fonts-indic \
-    fonts-ipafont-gothic \
-    fonts-kacst \
-    fonts-liberation \
-    fonts-noto-cjk \
+    # fonts
+    fonts-ubuntu \
+    fonts-noto-cjk-extra \
     fonts-noto-color-emoji \
-    fonts-roboto \
-    fonts-thai-tlwg \
-    fonts-wqy-zenhei \
     && \
     # clean up
     rm -rf /var/lib/apt/lists/*
