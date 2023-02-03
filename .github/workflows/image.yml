@@ -7,7 +7,7 @@ name: image
 on:
   # push:
   schedule:
-    - cron: "0 0 * * 0" # At 00:00 on Sunday.
+    - cron: "12 12 * * 3" # At 12:12 on Wednesday. | https://crontab.guru
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: [devcontainer, rclone, selenium, tex]
+        image: [rclone, selenium]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
