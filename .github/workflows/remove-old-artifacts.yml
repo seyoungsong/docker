@@ -1,4 +1,4 @@
-# https://github.com/c-hive/gha-remove-artifacts#usage
+# https://github.com/seyoungsong/docker/actions/workflows/remove-old-artifacts.yml
 
 name: Remove old artifacts
 
@@ -9,6 +9,7 @@ on:
     - cron: "0 1 * * *"
 
 jobs:
+  # https://github.com/c-hive/gha-remove-artifacts#usage
   remove-old-artifacts:
     runs-on: ubuntu-latest
     timeout-minutes: 10
