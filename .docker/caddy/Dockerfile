@@ -1,5 +1,5 @@
-# docker run -it --rm busybox sh
-FROM busybox AS builder
+# docker run -it --rm caddy:2 sh
+FROM caddy:2 AS builder
 
 RUN ARCH=$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
     echo "ARCH is [ ${ARCH} ]" && \
