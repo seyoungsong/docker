@@ -6,6 +6,7 @@ docker pull seyoungsong/rclone
 
 # test bash
 docker run -it --rm seyoungsong/rclone /bin/bash
+docker run -it --rm seyoungsong/caddy sh
 
 # test CMD
 docker run -it --rm seyoungsong/rclone
