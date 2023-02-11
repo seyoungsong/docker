@@ -22,3 +22,12 @@ jobs:
           # Optional inputs
           # skip-tags: true
           # skip-recent: 5
+
+  # https://github.com/kolpav/purge-artifacts-action#usage
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          expire-in: 0 # Setting this to 0 will delete all artifacts
