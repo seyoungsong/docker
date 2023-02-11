@@ -3,9 +3,11 @@ FROM debian:stable-slim
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -y && \
-    # apt-get upgrade -y && \
+RUN true && \
+    # update, install
+    apt-get update -y && \
     apt-get install -y -qq --no-install-recommends \
+    # tools
     ca-certificates cron curl dos2unix unzip \
     # cleanup
     && \
