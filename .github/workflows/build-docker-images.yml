@@ -1,4 +1,4 @@
-# https://github.com/seyoungsong/docker/actions/workflows/build-docker-image.yml
+# https://github.com/seyoungsong/docker/actions/workflows/build-docker-images.yml
 
 name: Build docker images
 
