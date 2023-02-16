@@ -1,7 +1,7 @@
 # [Docker](https://github.com/seyoungsong/docker)
 
 - [GitHub Container Registry](https://github.com/seyoungsong?tab=packages)
-- [Docker Hub](https://hub.docker.com/r/seyoungsong/)
+- [Docker Hub](https://hub.docker.com/u/seyoungsong)
 
 ## Docs
 
