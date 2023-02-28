@@ -18,6 +18,7 @@ RUN true && \
     neofetch \
     openssh-server \
     ssh-import-id \
+    tmux \
     tree \
     unzip \
     vim \
@@ -49,5 +50,10 @@ RUN true && \
     sed -i '1s/^/zstyle ":omz:update" mode disabled\n/' ~/.zshrc  && \
     # zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions  && \
-    sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc
-
+    sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc && \
+    # rclone
+    bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
+    rclone version && \
+    # taskfile | https://taskfile.dev
+    sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
+    task --version
