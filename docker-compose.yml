@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
 
+  # https://github.com/seyoungsong/docker/blob/master/.docker/ssh/Dockerfile
   ssh:
     image: ghcr.io/seyoungsong/ssh
     container_name: ssh
