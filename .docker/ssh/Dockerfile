@@ -90,5 +90,6 @@ RUN true && \
 RUN true && \
     # apt
     sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list && \
+    apt-get update && \
     # timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
