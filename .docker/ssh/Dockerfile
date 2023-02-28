@@ -38,3 +38,9 @@ RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
 ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR.UTF-8
+
+# omz
+RUN chsh -s /bin/zsh && \
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
+    sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc && \
+    sed -i '1s/^/zstyle ":omz:update" mode disabled\n/' ~/.zshrc
