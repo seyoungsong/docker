@@ -84,15 +84,7 @@ RUN true && \
     echo "URL: ${URL}" && \
     wget -O /gh.deb "${URL}" && \
     dpkg -i /gh.deb && \
-    rm /gh.deb && \
-    # miniserve | https://github.com/svenstaro/miniserve/releases/latest
-    ARCH=$(uname -m) && \
-    echo "ARCH: ${ARCH}" && \
-    URL="https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-${ARCH}-unknown-linux-gnu" && \
-    echo "URL: ${URL}" && \
-    wget -O /usr/local/bin/miniserve "${URL}" && \
-    chmod +x /usr/local/bin/miniserve && \
-    miniserve --version
+    rm /gh.deb
 
 # localization: korea
 RUN true && \
