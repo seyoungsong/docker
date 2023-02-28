@@ -18,7 +18,6 @@ RUN true && \
     neofetch \
     net-tools \
     openssh-server \
-    rclone \
     ssh-import-id \
     tmux \
     tree \
@@ -60,7 +59,7 @@ RUN true && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions  && \
     sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc && \
     # rclone
-    # bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
+    bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
     rclone version && \
     # taskfile | https://taskfile.dev
     sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
