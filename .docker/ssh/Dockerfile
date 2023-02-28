@@ -56,4 +56,17 @@ RUN true && \
     rclone version && \
     # taskfile | https://taskfile.dev
     sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
-    task --version
+    task --version && \
+    # ssh-import-id
+    ssh-import-id-gh seyoungsong && \
+    cat ~/.ssh/authorized_keys && \
+    # sshd_config
+    sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g" /etc/ssh/sshd_config && \
+    sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config && \
+    service ssh restart && \
+    # git
+    git config --global user.name "docker" && \
+    git config --global user.email "docker@docker" && \
+    git config --global core.quotepath false && \
+    git config --global pull.ff true && \
+    git config --global core.autocrlf input
