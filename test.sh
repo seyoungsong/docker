@@ -11,8 +11,10 @@ docker run -it --rm seyoungsong/caddy sh
 # test CMD
 docker run -it --rm seyoungsong/rclone
 
-# inspect
-docker inspect seyoungsong/rclone >temp.json
+# compose
+docker compose down &&
+    docker compose up --remove-orphans --detach &&
+    docker compose logs --follow
 
 # reset docker
 docker stop $(docker ps -aq)
