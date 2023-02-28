@@ -16,6 +16,7 @@ RUN true && \
     iputils-ping \
     locales \
     neofetch \
+    net-tools \
     openssh-server \
     ssh-import-id \
     tmux \
