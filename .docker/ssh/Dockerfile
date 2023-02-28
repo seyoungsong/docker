@@ -33,6 +33,7 @@ RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
     export LANG=ko_KR.UTF-8 && \
     export LC_ALL=ko_KR.UTF-8 && \
     export LANGUAGE=ko_KR.UTF-8 && \
+    locale -a && \
     locale
 ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
