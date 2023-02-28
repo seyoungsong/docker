@@ -77,4 +77,16 @@ RUN true && \
     echo "URL: ${URL}" && \
     wget -O /gh.deb "${URL}" && \
     dpkg -i /gh.deb && \
-    rm /gh.deb
+    rm /gh.deb 
+# pip
+ENV PIP_ROOT_USER_ACTION=ignore
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ARG PIP_NO_CACHE_DIR=1
+RUN pip install poetry
+
+# localization: korea
+RUN true && \
+    # apt
+    sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list && \
+    # timezone
+    ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
