@@ -2,8 +2,9 @@ version: "3.8"
 
 services:
 
-  # https://github.com/seyoungsong/docker/blob/master/.docker/ssh/Dockerfile
+  # https://github.com/seyoungsong/docker/blob/master/.docker/ssh/docker-compose.yml
   ssh:
+    # https://github.com/seyoungsong/docker/blob/master/.docker/ssh/Dockerfile
     image: ghcr.io/seyoungsong/ssh
     container_name: ssh
     restart: unless-stopped
