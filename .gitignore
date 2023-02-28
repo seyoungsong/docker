@@ -2,6 +2,7 @@
 temp/
 temp.*
 *.log
+compose-data/
 
 # Windows thumbnail cache files
 Thumbs.db
