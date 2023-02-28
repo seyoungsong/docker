@@ -8,6 +8,9 @@ services:
     restart: unless-stopped
     init: true
     entrypoint: []
-    command: service ssh restart && sleep infinity
+    command: bash -c "service ssh restart && sleep infinity"
+    ports:
+      # ssh -p 12345 root@localhost
+      - "12345:22"
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
