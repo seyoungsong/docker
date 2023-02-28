@@ -69,4 +69,12 @@ RUN true && \
     git config --global user.email "docker@docker" && \
     git config --global core.quotepath false && \
     git config --global pull.ff true && \
-    git config --global core.autocrlf input
+    git config --global core.autocrlf input && \
+    # gh | https://github.com/cli/cli/releases/latest
+    ARCH=$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
+    echo "ARCH: ${ARCH}" && \
+    URL="https://github.com/cli/cli/releases/download/v2.23.0/gh_2.23.0_linux_${ARCH}.deb" && \
+    echo "URL: ${URL}" && \
+    wget -O /gh.deb "${URL}" && \
+    dpkg -i /gh.deb && \
+    rm /gh.deb
