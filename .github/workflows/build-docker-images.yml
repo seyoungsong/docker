@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: [caddy, fastapi, rclone, selenium]
+        image: [caddy, fastapi, rclone, selenium, ssh]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
