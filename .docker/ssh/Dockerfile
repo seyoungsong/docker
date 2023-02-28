@@ -18,6 +18,7 @@ RUN true && \
     neofetch \
     net-tools \
     openssh-server \
+    rclone \
     ssh-import-id \
     tmux \
     tree \
@@ -59,7 +60,7 @@ RUN true && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions  && \
     sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc && \
     # rclone
-    bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
+    # bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
     rclone version && \
     # taskfile | https://taskfile.dev
     sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
@@ -84,7 +85,15 @@ RUN true && \
     echo "URL: ${URL}" && \
     wget -O /gh.deb "${URL}" && \
     dpkg -i /gh.deb && \
-    rm /gh.deb
+    rm /gh.deb && \
+    # miniserve | https://github.com/svenstaro/miniserve/releases/latest
+    ARCH=$(uname -m) && \
+    echo "ARCH: ${ARCH}" && \
+    URL="https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-${ARCH}-unknown-linux-gnu" && \
+    echo "URL: ${URL}" && \
+    wget -O /usr/local/bin/miniserve https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-x86_64-unknown-linux-gnu && \
+    chmod +x /usr/local/bin/miniserve && \
+    miniserve --version
 
 # localization: korea
 RUN true && \
