@@ -40,8 +40,14 @@ ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR.UTF-8
 
-# omz
-RUN chsh -s /bin/zsh && \
+# etc
+RUN true && \
+    # omz
+    chsh -s /bin/zsh && \
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
     sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc && \
-    sed -i '1s/^/zstyle ":omz:update" mode disabled\n/' ~/.zshrc
+    sed -i '1s/^/zstyle ":omz:update" mode disabled\n/' ~/.zshrc  && \
+    # zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions  && \
+    sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc
+
