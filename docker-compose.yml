@@ -10,7 +10,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=false"
     init: true
     entrypoint: []
-    command: bash -c "service ssh restart && sleep infinity"
+    command: bash -c "cp /rclone.conf /root/.config/rclone/rclone.conf && service ssh restart && sleep infinity"
     ports:
       # ssh -p 12345 root@localhost
       - "12345:22"
