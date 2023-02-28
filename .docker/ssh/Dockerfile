@@ -90,7 +90,7 @@ RUN true && \
     echo "ARCH: ${ARCH}" && \
     URL="https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-${ARCH}-unknown-linux-gnu" && \
     echo "URL: ${URL}" && \
-    wget -O /usr/local/bin/miniserve https://github.com/svenstaro/miniserve/releases/download/v0.22.0/miniserve-0.22.0-x86_64-unknown-linux-gnu && \
+    wget -O /usr/local/bin/miniserve "${URL}" && \
     chmod +x /usr/local/bin/miniserve && \
     miniserve --version
 
