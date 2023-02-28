@@ -1,6 +1,7 @@
 # docker run -it --rm python:3.11-bullseye bash
-# docker build --tag ssh:local .docker/ssh
 FROM python:3.11-bullseye
+# docker build --tag ssh:local .docker/ssh
+# docker run -it --rm ssh:local zsh
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
