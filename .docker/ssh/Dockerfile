@@ -3,6 +3,12 @@ FROM python:3.11-bullseye
 # docker build --tag ssh:local .docker/ssh
 # docker run -it --rm ssh:local zsh
 
+# pip
+ENV PIP_ROOT_USER_ACTION=ignore
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ARG PIP_NO_CACHE_DIR=1
+RUN pip install poetry
+
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN true && \
@@ -28,12 +34,6 @@ RUN true && \
     # cleanup
     && \
     rm -rf /var/lib/apt/lists/*
-
-# pip
-ENV PIP_ROOT_USER_ACTION=ignore
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ARG PIP_NO_CACHE_DIR=1
-RUN pip install poetry
 
 # locale (debian) | https://stackoverflow.com/a/38553499
 RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
