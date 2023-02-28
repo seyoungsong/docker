@@ -16,3 +16,4 @@ services:
       - "12345:22"
     volumes:
       - ./compose-data/ssh-data:/root/data
+      - ./.share/rclone.conf:/rclone.conf:ro
