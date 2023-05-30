@@ -8,10 +8,26 @@ RUN true && \
     apt-get update -y && \
     apt-get install -y -qq --no-install-recommends \
     # tools
-    ca-certificates cron curl dos2unix unzip \
+    ca-certificates \
+    curl \
+    locales \
+    unzip \
     # cleanup
     && \
     rm -rf /var/lib/apt/lists/*
+
+# locale (debian) | https://stackoverflow.com/a/38553499
+RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=ko_KR.UTF-8 && \
+    export LANG=ko_KR.UTF-8 && \
+    export LC_ALL=ko_KR.UTF-8 && \
+    export LANGUAGE=ko_KR.UTF-8 && \
+    locale -a && \
+    locale
+ENV LANG=ko_KR.UTF-8
+ENV LC_ALL=ko_KR.UTF-8
+ENV LANGUAGE=ko_KR.UTF-8
 
 # rclone
 RUN bash -c "$(curl -fsSL https://rclone.org/install.sh)"
@@ -19,18 +35,5 @@ RUN bash -c "$(curl -fsSL https://rclone.org/install.sh)"
 # timezone
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
-# copy
-COPY crontab.sh /crontab.sh
-COPY cronjob.sh /cronjob.sh
-COPY entrypoint.sh /entrypoint.sh
-
-# entrypoint
-RUN chmod 0744 /entrypoint.sh && \
-    dos2unix /entrypoint.sh
-
-# https://manpages.ubuntu.com/manpages/trusty/man8/cron.8.html
-# -f | Stay in foreground mode, don't daemonize.
-# -L loglevel | Tell  cron  what to log about jobs (errors are logged regardless of this value) as the sum of the following values:
+# workdir
 WORKDIR /app
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["cron", "-f", "-L", "2"]
