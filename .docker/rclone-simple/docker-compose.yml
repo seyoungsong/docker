@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   rclone:
-    image: ghcr.io/seyoungsong/rclone
+    image: ghcr.io/seyoungsong/rclone-simple
     container_name: rclone
     restart: unless-stopped
     init: true
