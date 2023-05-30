@@ -7,6 +7,6 @@ services:
     restart: unless-stopped
     init: true
     entrypoint: []
-    command: bash -c "cp /rclone.conf /root/.config/rclone/rclone.conf && sleep infinity"
+    command: bash -c "mkdir -p /root/.config/rclone/ && cp /rclone.conf /root/.config/rclone/rclone.conf && sleep infinity"
     volumes:
-      - ./rclone.conf:/rclone.conf:ro
+      - ../.share/rclone.conf:/rclone.conf:ro
