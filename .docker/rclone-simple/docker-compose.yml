@@ -6,7 +6,7 @@ services:
     container_name: rclone
     restart: unless-stopped
     init: true
+    entrypoint: []
+    command: sleep infinity
     volumes:
-      - ./cronjob.sh:/cronjob.sh
-      - ./crontab.sh:/crontab.sh
       - ./rclone.conf:/rclone.conf
