@@ -2,6 +2,8 @@ version: "3.8"
 
 services:
   rclone:
+    # docker run -it --rm --entrypoint="" rclone/rclone sh
+    # docker run -it --rm ghcr.io/seyoungsong/rclone-simple bash
     image: ghcr.io/seyoungsong/rclone-simple
     container_name: rclone
     restart: unless-stopped
