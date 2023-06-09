@@ -18,8 +18,9 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev:/dev
       - ./compose-data/ros-data:/root/data
+    working_dir: /root/data
     environment:
-      # - DISPLAY= # linux: xhost +local:root
-      - DISPLAY=host.docker.internal:0 # macos: xhost +localhost
+      - DISPLAY=:0 # linux: xhost +local:root
+      # - DISPLAY=host.docker.internal:0 # macos: xhost +localhost
       - QT_X11_NO_MITSHM=1
       - TZ=Asia/Seoul
