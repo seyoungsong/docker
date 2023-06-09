@@ -1,29 +1,36 @@
-# docker run -it --rm python:3.11-bullseye bash
-# docker inspect python:3.11-bullseye > temp.json
-FROM python:3.11-bullseye
-# docker build --tag ssh:local .docker/ssh
-# docker run -it --rm ssh:local zsh
+# docker run -it --rm ubuntu:20.04 bash
+FROM ubuntu:20.04
 
-# pip
+SHELL ["/bin/bash", "-c"]
+
+# pip config
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
-RUN pip install poetry
+
+# korean mirror for local test
+RUN sed -i "s/archive.ubuntu.com/mirror.kakao.com/g" /etc/apt/sources.list
+RUN sed -i "s/security.ubuntu.com/mirror.kakao.com/g" /etc/apt/sources.list
+RUN printf 'deb http://mirror.kakao.com/ubuntu focal main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-updates main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-backports main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-security main restricted universe multiverse\n' > /etc/apt/sources.list
+
+# global mirror for github actions
+# RUN printf 'deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse\ndeb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse\ndeb http://archive.ubuntu.com/ubuntu focal-backports main restricted universe multiverse\ndeb http://security.ubuntu.com/ubuntu focal-security main restricted universe multiverse\n' > /etc/apt/sources.list
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN true && \
+RUN export DEBIAN_FRONTEND=noninteractive && \
     # update, install
-    apt-get update -y && \
-    apt-get install -y -qq --no-install-recommends \
-    apt-transport-https \
+    apt-get update && \
+    apt-get install -y \
     curl \
+    ca-certificates \
     git \
+    gnupg \
     htop \
     iputils-ping \
     locales \
+    lsb-release \
     neofetch \
-    net-tools \
     openssh-server \
     ssh-import-id \
     tmux \
@@ -31,7 +38,6 @@ RUN true && \
     unzip \
     vim \
     wget \
-    zsh \
     # cleanup
     && \
     rm -rf /var/lib/apt/lists/*
@@ -49,48 +55,52 @@ ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR.UTF-8
 
-# etc
-RUN true && \
-    # omz
-    chsh -s /bin/zsh && \
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
-    sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc && \
-    sed -i '1s/^/zstyle ":omz:update" mode disabled\n/' ~/.zshrc  && \
-    # zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions  && \
-    sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc && \
-    # rclone
-    bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
-    rclone version && \
-    # taskfile | https://taskfile.dev
-    sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
-    task --version && \
-    # ssh-import-id
-    ssh-import-id-gh seyoungsong && \
-    cat ~/.ssh/authorized_keys && \
-    # sshd_config
-    sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g" /etc/ssh/sshd_config && \
-    sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/g" /etc/ssh/sshd_config && \
-    service ssh restart && \
-    # git
-    git config --global user.name "docker" && \
-    git config --global user.email "docker@docker" && \
-    git config --global core.quotepath false && \
-    git config --global pull.ff true && \
-    git config --global core.autocrlf input && \
-    # gh | https://github.com/cli/cli/releases/latest
-    ARCH=$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && \
-    echo "ARCH: ${ARCH}" && \
-    URL="https://github.com/cli/cli/releases/download/v2.23.0/gh_2.23.0_linux_${ARCH}.deb" && \
-    echo "URL: ${URL}" && \
-    wget -O /gh.deb "${URL}" && \
-    dpkg -i /gh.deb && \
-    rm /gh.deb
+# timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
-# localization: korea
-RUN true && \
-    # apt
-    sed -i "s/deb.debian.org/ftp.kaist.ac.kr/g" /etc/apt/sources.list && \
+# https://wiki.ros.org/noetic/Installation/Ubuntu
+
+# https://wiki.ros.org/ROS/Installation/UbuntuMirrors#Singapore
+RUN sh -c 'echo "deb [trusted=yes] http://mirror-ap.packages.ros.org/ros/ubuntu/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
+    curl -fsSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - && \
     apt-get update && \
-    # timezone
-    ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+    apt-get install -y \
+    ros-noetic-desktop-full \
+    # cleanup
+    && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc && \
+    echo "source /opt/ros/noetic/setup.zsh" >> ~/.zshrc
+
+RUN apt-get update && \
+    apt-get install -y \
+    build-essential \
+    python3-catkin-tools \
+    python3-numpy \
+    python3-pip \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-rosinstall-generator \
+    python3-vcstools \
+    python3-wstool \
+    python3-yaml \
+    # cleanup
+    && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install \
+    catkin_pkg \
+    cmake \
+    cvbridge3  \
+    opencv-python \
+    rospkg \
+    scikit-build
+
+RUN source ~/.bashrc && \
+    rosdep init && \
+    rosdep update && \
+    rosdep fix-permissions
+
+# FINISH: korean mirror for local prod
+RUN printf 'deb http://mirror.kakao.com/ubuntu focal main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-updates main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-backports main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-security main restricted universe multiverse\n' > /etc/apt/sources.list
