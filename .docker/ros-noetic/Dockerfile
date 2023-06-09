@@ -9,9 +9,9 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
 # korean mirror for local test
-RUN sed -i "s/archive.ubuntu.com/mirror.kakao.com/g" /etc/apt/sources.list
-RUN sed -i "s/security.ubuntu.com/mirror.kakao.com/g" /etc/apt/sources.list
-RUN printf 'deb http://mirror.kakao.com/ubuntu focal main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-updates main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-backports main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-security main restricted universe multiverse\n' > /etc/apt/sources.list
+# RUN sed -i "s/archive.ubuntu.com/mirror.kakao.com/g" /etc/apt/sources.list
+# RUN sed -i "s/security.ubuntu.com/mirror.kakao.com/g" /etc/apt/sources.list
+# RUN printf 'deb http://mirror.kakao.com/ubuntu focal main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-updates main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-backports main restricted universe multiverse\ndeb http://mirror.kakao.com/ubuntu focal-security main restricted universe multiverse\n' > /etc/apt/sources.list
 
 # global mirror for github actions
 RUN printf 'deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse\ndeb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse\ndeb http://archive.ubuntu.com/ubuntu focal-backports main restricted universe multiverse\ndeb http://security.ubuntu.com/ubuntu focal-security main restricted universe multiverse\n' > /etc/apt/sources.list
