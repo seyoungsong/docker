@@ -7,6 +7,7 @@ services:
     image: ghcr.io/seyoungsong/ros-noetic
     container_name: ros
     restart: unless-stopped
+    platform: linux/amd64
     privileged: true
     network_mode: host
     init: true
