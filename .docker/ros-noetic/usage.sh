@@ -1,5 +1,3 @@
-docker build --tag ros:local --file ./.local/ros/Dockerfile ./.local/ros
-
 docker run -it --rm \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
@@ -41,3 +39,11 @@ docker run -it \
     -v /dev:/dev \
     -w /root \
     osrf/ros:melodic-desktop-full
+
+docker run -it \
+    --env="DISPLAY" \
+    --env="QT_X11_NO_MITSHM=1" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    osrf/ros:indigo-desktop-full \
+    rqt
+export containerId=$(docker ps -l -q)

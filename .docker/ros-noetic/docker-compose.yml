@@ -12,4 +12,8 @@ services:
     ports:
       - "12345:22"
     volumes:
-      - ./compose-data/ssh-data:/root/data
+      - ./compose-data/ros-data:/root/data
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - DISPLAY=
+      - QT_X11_NO_MITSHM=1
