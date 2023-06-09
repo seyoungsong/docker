@@ -11,6 +11,8 @@ xhost +local:root # linux
 xhost +localhost  # macos
 
 docker exec -it ros bash
+# roscore
+# rqt
 
 docker compose stop
 docker compose restart
