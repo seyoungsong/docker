@@ -19,6 +19,7 @@ services:
       - /dev:/dev
       - ./compose-data/ros-data:/root/data
     environment:
-      - DISPLAY=
+      # - DISPLAY= # linux: xhost +local:root
+      - DISPLAY=host.docker.internal:0 # macos: xhost +localhost
       - QT_X11_NO_MITSHM=1
       - TZ=Asia/Seoul
