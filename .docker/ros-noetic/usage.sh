@@ -13,6 +13,7 @@ xhost +localhost  # macos
 docker exec -it ros bash
 # roscore
 # rqt
+code --folder-uri vscode-remote://attached-container+ros/root/data
 
 docker compose stop
 docker compose restart
