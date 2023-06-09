@@ -6,11 +6,11 @@ services:
     image: ghcr.io/seyoungsong/ros-noetic
     container_name: ros
     restart: unless-stopped
+    privileged: true
+    network_mode: host
     init: true
     entrypoint: []
     command: bash -c "cp /rclone.conf /root/.config/rclone/rclone.conf && service ssh restart && sleep infinity"
-    ports:
-      - "12345:22"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
