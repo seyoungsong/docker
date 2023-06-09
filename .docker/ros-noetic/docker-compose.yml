@@ -10,7 +10,7 @@ services:
     network_mode: host
     init: true
     entrypoint: []
-    command: bash -c "cp /rclone.conf /root/.config/rclone/rclone.conf && service ssh restart && sleep infinity"
+    command: bash -c "sleep infinity"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
