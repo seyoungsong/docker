@@ -1,4 +1,6 @@
-cd ./.docker/ros-noetic
+git clone https://github.com/seyoungsong/docker ~/seyoung-docker
+
+cd ~/seyoung-docker/.docker/ros-noetic
 
 docker compose pull
 
