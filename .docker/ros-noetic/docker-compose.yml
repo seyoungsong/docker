@@ -3,6 +3,7 @@ version: "3.9"
 services:
 
   ros:
+    # xhost +local:root
     image: ghcr.io/seyoungsong/ros-noetic
     container_name: ros
     restart: unless-stopped
