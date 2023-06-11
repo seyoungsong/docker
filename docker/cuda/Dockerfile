@@ -1,8 +1,8 @@
 # docker run -it --rm nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04 bash
 # docker run -it --rm ubuntu:22.04 bash
 # docker run -it --rm --platform=linux/amd64 ubuntu:22.04 bash
-FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/doc/supported-tags.md
+FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 
 RUN sed -i "s/archive.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
     sed -i "s/security.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
