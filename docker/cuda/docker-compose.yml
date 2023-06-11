@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+
+  nvidia:
+    # cd ~/repo/docker/docker/nvidia && docker compose up --remove-orphans --detach
+    # code --folder-uri vscode-remote://attached-container+$(printf nvidia | xxd -p)/data
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    image: seyoungsong/nvidia:local
+    container_name: nvidia
+    restart: unless-stopped
+    privileged: true
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    init: true
+    entrypoint: []
+    command: bash -c "service ssh restart && sleep infinity"
+    ports:
+      - "12345:22"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./compose-data/nvidia-data:/data
+    working_dir: /data
+    environment:
+      # macos: xhost +localhost
+      - DISPLAY=host.docker.internal:0
+      - QT_X11_NO_MITSHM=1
