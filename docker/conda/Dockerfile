@@ -1,11 +1,15 @@
 # docker run -it --rm debian:11 bash
 FROM debian:11
 
+SHELL ["/bin/bash", "-c"]
+
 # pip
 ENV PIP_ROOT_USER_ACTION=ignore
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ARG PIP_NO_CACHE_DIR=1
-RUN pip install poetry
+
+# RUN printf "deb http://ftp.kaist.ac.kr/debian bullseye main contrib non-free\ndeb http://ftp.kaist.ac.kr/debian bullseye-updates main contrib non-free\ndeb http://ftp.kaist.ac.kr/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
+
+RUN printf "deb http://deb.debian.org/debian bullseye main contrib non-free\ndeb http://deb.debian.org/debian bullseye-updates main contrib non-free\ndeb http://deb.debian.org/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
@@ -91,3 +95,5 @@ RUN true && \
     apt-get update && \
     # timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+RUN printf "deb http://ftp.kaist.ac.kr/debian bullseye main contrib non-free\ndeb http://ftp.kaist.ac.kr/debian bullseye-updates main contrib non-free\ndeb http://ftp.kaist.ac.kr/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
