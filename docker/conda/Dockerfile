@@ -39,10 +39,8 @@ ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR.UTF-8
 
-# etc
-RUN true && \
-    # omz
-    chsh -s /bin/zsh && \
+# omz
+RUN chsh -s /bin/zsh && \
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
     sed -i '1s/^/ZSH_DISABLE_COMPFIX="true"\n/' ~/.zshrc && \
     sed -i '1s/^/zstyle ":omz:update" mode disabled\n/' ~/.zshrc  && \
@@ -51,7 +49,7 @@ RUN true && \
     sed -i "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc && \
     # rclone
     bash -c "$(curl -fsSL https://rclone.org/install.sh)" && \
-    rclone version && \
+    rclone --version && \
     # taskfile | https://taskfile.dev
     sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
     task --version && \
@@ -78,20 +76,17 @@ RUN true && \
     rm -rf /var/lib/apt/lists/*
 
 # conda | https://github.com/conda-forge/miniforge/releases/latest
-ENV CONDA_DIR=/opt/conda
+ARG CONDA_DIR=/opt/conda
 RUN wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-$(uname -m).sh" && \
     bash /mambaforge.sh -b -p ${CONDA_DIR} && \
     rm /mambaforge.sh && \
     ${CONDA_DIR}/bin/mamba init bash && \
     ${CONDA_DIR}/bin/mamba init zsh
 
-# localization: korea
+# localization: korean mirror
 RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list && \
-    # timezone
+    # korean timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
-# pip
-ENV PIP_ROOT_USER_ACTION=ignore
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-
+# change default shell
 SHELL ["/bin/zsh", "-c"]
