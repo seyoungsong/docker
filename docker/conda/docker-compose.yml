@@ -3,6 +3,8 @@ version: "3.9"
 services:
 
   conda:
+    # cd ~/repo/docker/docker/conda && docker compose up --remove-orphans --detach
+    # code --folder-uri vscode-remote://attached-container+$(printf conda | xxd -p)/data
     image: ghcr.io/seyoungsong/conda
     container_name: ssh
     restart: unless-stopped
