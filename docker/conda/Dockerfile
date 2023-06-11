@@ -1,21 +1,12 @@
 # docker run -it --rm debian:11 bash
-# docker build --tag conda:local ./docker/conda
 FROM debian:11
 
-SHELL ["/bin/bash", "-c"]
-
-# pip
-ENV PIP_ROOT_USER_ACTION=ignore
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-
 # RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
-
 RUN printf "deb http://deb.debian.org/debian bullseye main contrib non-free\ndeb http://deb.debian.org/debian bullseye-updates main contrib non-free\ndeb http://deb.debian.org/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update -y && \
+RUN apt-get update -y && \
     apt-get install -y \
     apt-transport-https \
     build-essential \
@@ -43,10 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 # locale (debian) | https://stackoverflow.com/a/38553499
 RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
-    update-locale LANG=ko_KR.UTF-8 && \
-    export LANG=ko_KR.UTF-8 && \
-    export LC_ALL=ko_KR.UTF-8 && \
-    export LANGUAGE=ko_KR.UTF-8
+    update-locale LANG=ko_KR.UTF-8
 ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR.UTF-8
@@ -101,5 +89,9 @@ RUN wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/la
 RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list && \
     # timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+# pip
+ENV PIP_ROOT_USER_ACTION=ignore
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 SHELL ["/bin/zsh", "-c"]
