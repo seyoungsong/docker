@@ -1,12 +1,10 @@
 # docker run -it --rm nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04 bash
-# docker run -it --rm ubuntu:22.04 bash
+# docker run -it --rm --platform=linux/arm64 ubuntu:22.04 bash
 # docker run -it --rm --platform=linux/amd64 ubuntu:22.04 bash
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/doc/supported-tags.md
 FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 
-RUN sed -i "s/archive.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
-    sed -i "s/security.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
-    sed -i "s/ports.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list
+# RUN sed -i "s/archive.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && sed -i "s/security.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && sed -i "s/ports.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
@@ -36,7 +34,7 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # locale (debian) | https://stackoverflow.com/a/38553499
-RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
+RUN locale-gen ko_KR.utf8 && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=ko_KR.UTF-8
 ENV LANG=ko_KR.UTF-8
@@ -88,7 +86,9 @@ RUN wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/la
     ${CONDA_DIR}/bin/mamba init zsh
 
 # localization: korean mirror
-RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list && \
+RUN sed -i "s/archive.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
+    sed -i "s/security.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
+    sed -i "s/ports.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
     # korean timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
