@@ -2,20 +2,17 @@ version: "3.9"
 
 services:
 
-  # https://github.com/seyoungsong/docker/blob/master/.docker/ssh/docker-compose.yml
-  ssh:
-    # https://github.com/seyoungsong/docker/blob/master/.docker/ssh/Dockerfile
-    image: ghcr.io/seyoungsong/ssh
+  conda:
+    image: ghcr.io/seyoungsong/conda
     container_name: ssh
     restart: unless-stopped
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
     init: true
     entrypoint: []
-    command: bash -c "cp /rclone.conf /root/.config/rclone/rclone.conf && service ssh restart && sleep infinity"
+    command: bash -c "service ssh restart && sleep infinity"
     ports:
       # ssh -p 12345 root@localhost
       - "12345:22"
     volumes:
-      - ./compose-data/ssh-data:/root/data
-      - ../.share/rclone.conf:/rclone.conf:ro
+      - ./compose-data/conda-data:/data
