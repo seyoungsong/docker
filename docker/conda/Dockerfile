@@ -31,6 +31,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     unzip \
     vim \
     wget \
+    x11-apps \
     zsh \
     # cleanup
     && \
