@@ -1,4 +1,5 @@
 # docker run -it --rm debian:11 bash
+# docker build --tag conda:local ./docker/conda
 FROM debian:11
 
 SHELL ["/bin/bash", "-c"]
