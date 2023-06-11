@@ -13,10 +13,9 @@ RUN printf "deb http://deb.debian.org/debian bullseye main contrib non-free\ndeb
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
-RUN true && \
-    # update, install
+RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
-    apt-get install -y -qq --no-install-recommends \
+    apt-get install -y \
     apt-transport-https \
     curl \
     git \
