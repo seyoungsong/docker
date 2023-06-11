@@ -6,7 +6,7 @@ services:
     # cd ~/repo/docker/docker/conda && docker compose up --remove-orphans --detach
     # code --folder-uri vscode-remote://attached-container+$(printf conda | xxd -p)/data
     image: ghcr.io/seyoungsong/conda
-    container_name: ssh
+    container_name: conda
     restart: unless-stopped
     privileged: true
     labels:
@@ -15,7 +15,6 @@ services:
     entrypoint: []
     command: bash -c "service ssh restart && sleep infinity"
     ports:
-      # ssh -p 12345 root@localhost
       - "12345:22"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
