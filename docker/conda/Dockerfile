@@ -85,6 +85,9 @@ RUN true && \
     gh --version && \
     rm -rf /var/lib/apt/lists/*
 
+# conda | https://github.com/conda-forge/miniforge/releases
+RUN wget -O /tmp/mambaforge.sh "https://github.com/conda-forge/miniforge/releases/download/23.1.0-1/Mambaforge-23.1.0-1-Linux-$(uname -m).sh"
+
 # localization: korea
 RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list && \
     # timezone
