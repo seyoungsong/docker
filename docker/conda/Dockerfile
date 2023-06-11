@@ -87,8 +87,7 @@ RUN true && \
 
 # conda | https://github.com/conda-forge/miniforge/releases
 ENV CONDA_DIR=/opt/conda
-RUN wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/download/23.1.0-1/Mambaforge-23.1.0-1-Linux-$(uname -m).sh" && \
-    wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-$(uname -m).sh" && \
+RUN wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-$(uname -m).sh" && \
     bash /mambaforge.sh -b -p ${CONDA_DIR} && \
     rm /mambaforge.sh && \
     ${CONDA_DIR}/bin/conda init bash && \
