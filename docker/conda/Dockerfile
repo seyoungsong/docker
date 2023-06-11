@@ -1,5 +1,5 @@
-# docker run -it --rm debian:11 bash
-FROM debian:11
+# docker run -it --rm debian:bullseye bash
+FROM debian:bullseye
 
 # RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
 RUN printf "deb http://deb.debian.org/debian bullseye main contrib non-free\ndeb http://deb.debian.org/debian bullseye-updates main contrib non-free\ndeb http://deb.debian.org/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
