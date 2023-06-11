@@ -86,11 +86,6 @@ RUN true && \
     rm -rf /var/lib/apt/lists/*
 
 # localization: korea
-RUN true && \
-    # apt
-    sed -i "s/deb.debian.org/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
-    apt-get update && \
+RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list && \
     # timezone
     ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-
-RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
