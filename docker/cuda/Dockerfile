@@ -1,9 +1,10 @@
 # docker run -it --rm nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04 bash
+# docker run -it --rm ubuntu:22.04 bash
 FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/doc/supported-tags.md
 
-# RUN printf "deb http://mirror.yuki.net.uk/debian bullseye main contrib non-free\ndeb http://mirror.yuki.net.uk/debian bullseye-updates main contrib non-free\ndeb http://mirror.yuki.net.uk/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
-RUN printf "deb http://deb.debian.org/debian bullseye main contrib non-free\ndeb http://deb.debian.org/debian bullseye-updates main contrib non-free\ndeb http://deb.debian.org/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
+RUN sed -i "s/archive.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list && \
+    sed -i "s/security.ubuntu.com/mirror.yuki.net.uk/g" /etc/apt/sources.list
 
 # apt
 ARG DEBIAN_FRONTEND=noninteractive
