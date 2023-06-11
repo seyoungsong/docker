@@ -4,7 +4,7 @@ services:
 
   seyoung-nvidia:
     # cd ~/repo/docker/docker/nvidia && docker compose up --remove-orphans --detach
-    # code --folder-uri vscode-remote://attached-container+$(printf nvidia | xxd -p)/data
+    # code --folder-uri vscode-remote://attached-container+$(printf seyoung-nvidia | xxd -p)/data
     build:
       context: ./docker
       dockerfile: Dockerfile
@@ -21,13 +21,8 @@ services:
       - "7022:22"
       - "7000-7010"
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./compose-data/seyoung-nvidia-data:/data
     working_dir: /data
-    environment:
-      # macos: xhost +localhost
-      - DISPLAY=host.docker.internal:0
-      - QT_X11_NO_MITSHM=1
     deploy:
       resources:
         reservations:
