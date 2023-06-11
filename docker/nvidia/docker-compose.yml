@@ -2,14 +2,14 @@ version: "3.9"
 
 services:
 
-  nvidia:
+  seyoung-nvidia:
     # cd ~/repo/docker/docker/nvidia && docker compose up --remove-orphans --detach
     # code --folder-uri vscode-remote://attached-container+$(printf nvidia | xxd -p)/data
     build:
       context: ./docker
       dockerfile: Dockerfile
-    image: seyoungsong/nvidia:local
-    container_name: nvidia
+    image: seyoung-nvidia:local
+    container_name: seyoung-nvidia
     restart: unless-stopped
     privileged: true
     labels:
@@ -18,10 +18,11 @@ services:
     entrypoint: []
     command: bash -c "service ssh restart && sleep infinity"
     ports:
-      - "12345:22"
+      - "7022:22"
+      - "7000-7010"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./compose-data/nvidia-data:/data
+      - ./compose-data/seyoung-nvidia-data:/data
     working_dir: /data
     environment:
       # macos: xhost +localhost
