@@ -1,5 +1,5 @@
 # build
-docker build --tag selenium:local --file .docker/selenium/Dockerfile .docker/selenium
+docker build --tag selenium:local --file ./.docker/selenium/Dockerfile ./.docker/selenium
 
 # pull
 docker pull seyoungsong/rclone

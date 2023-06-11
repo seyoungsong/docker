@@ -40,8 +40,8 @@ jobs:
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          context: .docker/${{ matrix.image }}
-          file: .docker/${{ matrix.image }}/Dockerfile
+          context: ./.docker/${{ matrix.image }}
+          file: ./.docker/${{ matrix.image }}/Dockerfile
           platforms: linux/amd64
           push: true
           tags: |
