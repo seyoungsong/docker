@@ -85,7 +85,7 @@ RUN true && \
     gh --version && \
     rm -rf /var/lib/apt/lists/*
 
-# conda | https://github.com/conda-forge/miniforge/releases
+# conda | https://github.com/conda-forge/miniforge/releases/latest
 ENV CONDA_DIR=/opt/conda
 RUN wget -O /mambaforge.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-$(uname -m).sh" && \
     bash /mambaforge.sh -b -p ${CONDA_DIR} && \
