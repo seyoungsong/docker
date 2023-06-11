@@ -1,8 +1,5 @@
-# docker run -it --rm python:3.11-bullseye bash
-# docker inspect python:3.11-bullseye > temp.json
-FROM python:3.11-bullseye
-# docker build --tag ssh:local ./docker/ssh
-# docker run -it --rm ssh:local zsh
+# docker run -it --rm debian:11 bash
+FROM debian:11
 
 # pip
 ENV PIP_ROOT_USER_ACTION=ignore
