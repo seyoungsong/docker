@@ -27,3 +27,10 @@ services:
       # macos: xhost +localhost
       - DISPLAY=host.docker.internal:0
       - QT_X11_NO_MITSHM=1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
