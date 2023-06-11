@@ -59,6 +59,11 @@ RUN chsh -s /bin/zsh && \
     # taskfile | https://taskfile.dev
     sh -c "$(curl -fsSL --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin && \
     task --version && \
+    # shfmt | https://github.com/mvdan/sh/releases
+    mkdir -p /usr/local/bin && \
+    wget -O /usr/local/bin/shfmt "https://github.com/mvdan/sh/releases/download/v3.6.0/shfmt_v3.6.0_linux_$(dpkg --print-architecture)" && \
+    chmod +x /usr/local/bin/shfmt && \
+    /usr/local/bin/shfmt --version && \
     # ssh-import-id
     ssh-import-id-gh seyoungsong && \
     cat ~/.ssh/authorized_keys && \
