@@ -12,14 +12,18 @@ RUN apt-get update -y && \
     apt-get install -y \
     apt-transport-https \
     build-essential \
+    ca-certificates \
     curl \
     git \
+    gpg \
     htop \
     iputils-ping \
     locales \
     neofetch \
     net-tools \
     openssh-server \
+    p7zip-full \
+    software-properties-common \
     ssh-import-id \
     sudo \
     tmux \
