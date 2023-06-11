@@ -18,6 +18,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
     apt-get install -y \
     apt-transport-https \
+    build-essential \
     curl \
     git \
     htop \
@@ -27,6 +28,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     net-tools \
     openssh-server \
     ssh-import-id \
+    sudo \
     tmux \
     tree \
     unzip \
