@@ -6,6 +6,7 @@ services:
     image: ghcr.io/seyoungsong/conda
     container_name: ssh
     restart: unless-stopped
+    privileged: true
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
     init: true
@@ -15,4 +16,10 @@ services:
       # ssh -p 12345 root@localhost
       - "12345:22"
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - ./compose-data/conda-data:/data
+    working_dir: /data
+    environment:
+      # macos: xhost +localhost
+      - DISPLAY=host.docker.internal:0
+      - QT_X11_NO_MITSHM=1
