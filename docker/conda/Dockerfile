@@ -39,7 +39,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 # locale (debian) | https://stackoverflow.com/a/38553499
 RUN sed -i -e 's/# ko_KR.UTF-8 UTF-8/ko_KR.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
-    update-locale LANG=ko_KR.UTF-8
+    update-locale LANG=ko_KR.UTF-8 && \
+    export LANG=ko_KR.UTF-8 && \
+    export LC_ALL=ko_KR.UTF-8 && \
+    export LANGUAGE=ko_KR.UTF-8
 ENV LANG=ko_KR.UTF-8
 ENV LC_ALL=ko_KR.UTF-8
 ENV LANGUAGE=ko_KR.UTF-8
