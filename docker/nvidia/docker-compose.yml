@@ -11,6 +11,8 @@ services:
     image: seyoung-nvidia:local
     container_name: seyoung-nvidia
     restart: unless-stopped
+    runtime: nvidia
+    ipc: host
     privileged: true
     labels:
       - "com.centurylinklabs.watchtower.enable=false"
@@ -23,10 +25,3 @@ services:
     volumes:
       - ./compose-data/seyoung-nvidia-data:/data
     working_dir: /data
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu ]
