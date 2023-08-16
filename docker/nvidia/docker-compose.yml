@@ -1,7 +1,6 @@
-version: "3.9"
+version: "3.8"
 
 services:
-
   seyoung-nvidia:
     # cd ~/repo/docker/docker/nvidia && docker compose up --remove-orphans --detach
     # code --folder-uri vscode-remote://attached-container+$(printf seyoung-nvidia | xxd -p)/data

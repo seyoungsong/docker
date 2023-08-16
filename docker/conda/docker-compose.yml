@@ -1,7 +1,6 @@
-version: "3.9"
+version: "3.8"
 
 services:
-
   conda:
     # cd ~/repo/docker/docker/conda && docker compose up --remove-orphans --detach
     # code --folder-uri vscode-remote://attached-container+$(printf conda | xxd -p)/data

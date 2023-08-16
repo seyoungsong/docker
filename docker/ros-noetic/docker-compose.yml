@@ -1,7 +1,6 @@
-version: "3.9"
+version: "3.8"
 
 services:
-
   ros:
     # xhost +local:root
     image: ghcr.io/seyoungsong/ros-noetic
